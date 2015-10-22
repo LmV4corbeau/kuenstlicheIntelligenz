@@ -27,5 +27,28 @@ public class Test {
             System.out.println("");
         }
         System.out.println(mat.length);
+        double tom = mat.length / 2;
+        Double halfdouble = Math.floor(tom);
+        int half = halfdouble.intValue();
+        int numberOfElementsInArray = mat[0].length;
+        int[][] A = new int[half][numberOfElementsInArray];
+        int[][] B = new int[mat.length - half][numberOfElementsInArray];
+        System.arraycopy(mat, 0, A, 0, half);
+        System.arraycopy(mat, half, B, 0, mat.length - half);
+        System.out.println(A);
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < A[i].length; j++) {
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println(B);
+        for (int i = 0; i < B.length; i++) {
+            for (int j = 0; j < B[i].length; j++) {
+                System.out.print(B[i][j] + " ");
+            }
+            System.out.println();
+        }
+
     }
 }

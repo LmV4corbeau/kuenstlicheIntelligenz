@@ -6,7 +6,9 @@
 package org.toschu.laboraufgabe1.featurechecking;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.toschu.laboraufgabe1.featurdefinitions.Color;
 import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 
@@ -17,13 +19,19 @@ import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 public class QuadrantOfMaxBlue {
 
     public Quadrant findQuadrantWithMaxBlue(Color[][] picture) {
-        List<Color[][]> quadrantsOfPicture = buildQuadrants(picture);
-        return Quadrant.QUADRANT_0;
+        Map<Quadrant, Color[][]> quadrantsOfPicture = buildQuadrants(picture);
+        if (!checkPictureForBlue(picture)) {
+            return Quadrant.QUADRANT_0;
+        } else {
+            //TODO
+            return Quadrant.QUADRANT_0;
+        }
     }
 
-    public boolean checkQuadrantForBlue(Color[][] quadrand) {
+    public boolean checkPictureForBlue(Color[][] quadrand) {
         for (int rowCounter = 0; rowCounter < quadrand.length; rowCounter++) {
-            for (int columnCount = 0; columnCount < quadrand[rowCounter].length; columnCount++) {
+            for (int columnCount = 0;
+                    columnCount < quadrand[rowCounter].length; columnCount++) {
                 if (quadrand[rowCounter][columnCount].equals(Color.BLUE)) {
                     return true;
                 }
@@ -32,13 +40,16 @@ public class QuadrantOfMaxBlue {
         return false;
     }
 
-    public List<Color[][]> buildQuadrants(Color[][] picture) {
-        ArrayList<Color[][]> quadrants = new ArrayList<>();
+    public Map<Quadrant, Color[][]> buildQuadrants(Color[][] picture) {
+        Map<Quadrant, Color[][]> quadrants = new HashMap<>();
         int maxRowCount = picture.length;
         int maxColumnCount = Integer.MIN_VALUE;
-        for (int rowCounter = 0; rowCounter < maxRowCount; rowCounter++) {
-            
-        }
+        Color[][] upperPart
+                = new SplitPictureInParts().getUpperPartOfPicture(picture);
+        Color[][] lowerPart
+                = new SplitPictureInParts().getLowerPartOfPicture(picture);
+        
+        
         return quadrants;
     }
 }
