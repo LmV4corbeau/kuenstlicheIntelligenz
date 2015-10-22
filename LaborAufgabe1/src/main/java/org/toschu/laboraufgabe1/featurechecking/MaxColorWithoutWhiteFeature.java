@@ -39,9 +39,9 @@ public class MaxColorWithoutWhiteFeature {
 
     public int countColorInPicture(Color[][] picture, Color wantedColor) {
         int countOfColor = 0;
-        for (int row = 0; row < picture.length; row++) {
-            for (int column = 0; column < picture.length; column++) {
-                if (wantedColor.equals(picture[row][column])) {
+        for (int rowCounter = 0; rowCounter < picture.length; rowCounter++) {
+            for (int columnCounter = 0; columnCounter < picture[rowCounter].length; columnCounter++) {
+                if (wantedColor.equals(picture[rowCounter][columnCounter])) {
                     countOfColor++;
                 }
             }
