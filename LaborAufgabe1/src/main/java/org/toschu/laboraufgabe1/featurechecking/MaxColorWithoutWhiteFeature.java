@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.toschu.laboraufgabe1.impl.Color;
+import org.toschu.laboraufgabe1.featurdefinitions.Color;
 
 /**
  *

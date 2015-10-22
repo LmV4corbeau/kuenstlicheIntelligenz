@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.toschu.laboraufgabe1.impl.treestructur;
+package org.toschu.laboraufgabe1.tree;
 
 import java.util.Objects;
 import java.util.Vector;
