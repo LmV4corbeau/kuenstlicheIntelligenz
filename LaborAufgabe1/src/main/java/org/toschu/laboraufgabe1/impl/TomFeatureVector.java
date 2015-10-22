@@ -7,7 +7,6 @@ package org.toschu.laboraufgabe1.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.naming.ldap.HasControls;
 import org.toschu.laboraufgabe1.framework.Concept;
 import org.toschu.laboraufgabe1.framework.FeatureVector;
 
@@ -17,19 +16,39 @@ import org.toschu.laboraufgabe1.framework.FeatureVector;
  */
 public class TomFeatureVector implements FeatureVector {
 
+    private Map<Integer, Integer> features;
+    private Concept concept;
+
+    public TomFeatureVector(Map<Integer, Integer> features) {
+        this.features = features;
+    }
+
+    public TomFeatureVector() {
+        this.features = new HashMap<>();
+    }
+
     @Override
     public Concept getConcept() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.concept;
     }
 
     @Override
     public int getNumFeatures() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.features == null) {
+            this.features = new HashMap<>();
+        }
+        return this.features.keySet().size();
     }
 
     @Override
     public int getFeatureValue(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.features == null || this.features.isEmpty()) {
+            return -10;
+        } else if (!this.features.containsKey(i)) {
+            return -11;
+        } else {
+            return this.features.get(i);
+        }
     }
 
 }
