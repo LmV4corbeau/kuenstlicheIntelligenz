@@ -33,8 +33,8 @@ public class SplitPictureInParts {
         List<FeatureColor[][]> lowerQuadrants = getVerticalPartsOfPicture(lowerPartOfPicture);
         quadrants.put(Quadrant.QUADRANT_1, upperQuadrants.get(1));
         quadrants.put(Quadrant.QUADRANT_2, upperQuadrants.get(0));
-        quadrants.put(Quadrant.QUADRANT_3, lowerQuadrants.get(0));
-        quadrants.put(Quadrant.QUADRANT_4, lowerQuadrants.get(1));
+        quadrants.put(Quadrant.QUADRANT_3, lowerQuadrants.get(1));
+        quadrants.put(Quadrant.QUADRANT_4, lowerQuadrants.get(0));
         return quadrants;
     }
 
@@ -55,8 +55,8 @@ public class SplitPictureInParts {
             FeatureColor[] currentLeftPart = new FeatureColor[currenthalf];
             FeatureColor[] currentRightPart = new FeatureColor[currentColumnCount - currenthalf];
             System.arraycopy(picture[row], 0, currentLeftPart, 0, currenthalf);
-            System.arraycopy(picture[row], 0, currentRightPart,
-                    0, currentColumnCount - currenthalf);
+            System.arraycopy(picture[row], currenthalf,
+                    currentRightPart, 0, currentColumnCount - currenthalf);
             leftPart[row] = currentLeftPart;
             rightPart[row] = currentRightPart;
         }
@@ -93,5 +93,22 @@ public class SplitPictureInParts {
             }
         }
         return maxColumnCount;
+    }
+
+    public void printQuadrants(Map<Quadrant, FeatureColor[][]> quadrants) {
+        for (Quadrant currentQuadrant : quadrants.keySet()) {
+            System.out.println(currentQuadrant);
+            for (int row = 0;
+                    row < quadrants.get(currentQuadrant).length;
+                    row++) {
+                for (int column = 0;
+                        column < quadrants.get(currentQuadrant)[row].length;
+                        column++) {
+                    System.out.print(quadrants.get(currentQuadrant)[row][column]);
+                }
+                System.out.println("");
+            }
+            System.out.println("--------------------------------------");
+        }
     }
 }

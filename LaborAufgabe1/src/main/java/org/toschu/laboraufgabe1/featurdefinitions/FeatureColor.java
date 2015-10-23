@@ -5,8 +5,6 @@
  */
 package org.toschu.laboraufgabe1.featurdefinitions;
 
-import java.util.Objects;
-import org.toschu.laboraufgabe1.featurechecking.MaxColorWithoutWhiteFeature;
 
 /**
  *
@@ -18,7 +16,8 @@ public enum FeatureColor {
     YELLOW(1),
     RED(2),
     WHITE(3),
-    NOTHING(4);
+    NOTHING(4),
+    BLACK(5);
 
     private final int value;
 

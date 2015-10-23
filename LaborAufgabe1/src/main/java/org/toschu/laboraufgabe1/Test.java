@@ -5,6 +5,11 @@
  */
 package org.toschu.laboraufgabe1;
 
+import java.util.Map;
+import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
+import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
+import org.toschu.laboraufgabe1.featurechecking.SplitPictureInParts;
+
 /**
  *
  * @author toschu
@@ -50,5 +55,15 @@ public class Test {
             System.out.println();
         }
 
+        FeatureColor[][] pic = new FeatureColor[][]{
+            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE},
+            new FeatureColor[]{FeatureColor.YELLOW, FeatureColor.RED},
+            
+            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.WHITE},
+            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE}
+        };
+        Map<Quadrant, FeatureColor[][]> buildQuadrandsOFPicture
+                = new SplitPictureInParts().buildQuadrandsOFPicture(pic);
+        new SplitPictureInParts().printQuadrants(buildQuadrandsOFPicture);
     }
 }
