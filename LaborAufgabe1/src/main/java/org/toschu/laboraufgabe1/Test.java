@@ -10,6 +10,8 @@ import java.util.Map;
 import org.toschu.laboraufgabe1.analysis.ImageConverter;
 import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
+import org.toschu.laboraufgabe1.featurechecking.MaxColorWithoutWhiteFeature;
+import org.toschu.laboraufgabe1.featurechecking.QuadrantOfMaxBlue;
 import org.toschu.laboraufgabe1.featurechecking.SplitPictureInParts;
 
 /**
@@ -17,10 +19,10 @@ import org.toschu.laboraufgabe1.featurechecking.SplitPictureInParts;
  * @author toschu
  */
 public class Test {
-
+    
     public static void main(String[] args) {
         arrayIntBSP();
-
+        
         FeatureColor[][] pic = new FeatureColor[][]{
             new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE},
             new FeatureColor[]{FeatureColor.YELLOW, FeatureColor.RED},
@@ -30,7 +32,7 @@ public class Test {
         Map<Quadrant, FeatureColor[][]> buildQuadrandsOFPicture
                 = new SplitPictureInParts().buildQuadrandsOFPicture(pic);
         new SplitPictureInParts().printQuadrants(buildQuadrandsOFPicture);
-
+        
         File picfolder = new File(System.getProperty("user.dir")
                 + File.separator + "src"
                 + File.separator + "main"
@@ -41,16 +43,16 @@ public class Test {
                 + File.separator + "main"
                 + File.separator + "java"
                 + File.separator + "files");
-        ImageConverter imageConverter = new ImageConverter(new File(picfolder, "vorfahrt.bmp"));
+        ImageConverter imageConverter = new ImageConverter(new File(picfolder, "links.bmp"));
         imageConverter.printMatrix();
         FeatureColor[][] leftPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
-                new SplitPictureInParts().getLeftPartOfPicture(imageConverter.getImageMatrix()));
+                        new SplitPictureInParts().getLeftPartOfPicture(imageConverter.getImageMatrix()));
         FeatureColor[][] rightPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
                         new SplitPictureInParts().getRightPartOfPicture(imageConverter.getImageMatrix()));
         System.out.println("-.-");
-
+        
         for (int y = 0; y < leftPartOfPicture.length; y++) {
             for (int x = 0; x < leftPartOfPicture[y].length; x++) {
                 if (leftPartOfPicture[y][x] != FeatureColor.NOTHING) {
@@ -72,11 +74,15 @@ public class Test {
             }
             System.out.println("");
         }
-
+        
         SplitPictureInParts inParts = new SplitPictureInParts();
         inParts.printQuadrants(inParts.buildQuadrandsOFPicture(imageConverter.getImageMatrix()));
+        
+        System.out.println(
+                new MaxColorWithoutWhiteFeature().findMaximalColorWithoutWhite(imageConverter.getImageMatrix()));
+        System.out.println(new QuadrantOfMaxBlue().findQuadrantWithMaxBlue(imageConverter.getImageMatrix()));
     }
-
+    
     public static void arrayIntBSP() {
         int[][] mat;
         mat = new int[][]{
@@ -84,16 +90,16 @@ public class Test {
             new int[]{11, 12, 13, 14},
             new int[]{21, 22, 23, 24},
             new int[]{31, 32, 33}};
-
+        
         System.out.println(mat.toString());
-
+        
         for (int rowCount = 0; rowCount < mat.length; rowCount++) {
             for (int columCount = 0; columCount < mat[rowCount].length; columCount++) {
                 System.out.print(mat[rowCount][columCount] + " ");
             }
             System.out.println("");
         }
-
+        
         System.out.println(mat.length);
         double tom = mat.length / 2;
         Double halfdouble = Math.floor(tom);

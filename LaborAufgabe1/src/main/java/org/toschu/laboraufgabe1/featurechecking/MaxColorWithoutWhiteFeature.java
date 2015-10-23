@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 
 /**
@@ -26,6 +25,8 @@ public class MaxColorWithoutWhiteFeature {
             colorAndCountMap.put(currentColor,
                     this.countColorInPicture(pictureMatrix, currentColor));
         }
+        colorAndCountMap.remove(FeatureColor.WHITE);
+        colorAndCountMap.remove(FeatureColor.NOTHING);
         FeatureColor maxColor = FeatureColor.NOTHING;
         Integer maxCount = Integer.MIN_VALUE;
         for (FeatureColor currentColor : colorAndCountMap.keySet()) {
