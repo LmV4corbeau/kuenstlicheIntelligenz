@@ -12,6 +12,7 @@ import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 import org.toschu.laboraufgabe1.featurechecking.MaxColorWithoutWhiteFeature;
 import org.toschu.laboraufgabe1.featurechecking.QuadrantOfMaxBlue;
+import org.toschu.laboraufgabe1.featurechecking.RedAndBlack;
 import org.toschu.laboraufgabe1.featurechecking.SplitPictureInParts;
 
 /**
@@ -43,7 +44,7 @@ public class Test {
                 + File.separator + "main"
                 + File.separator + "java"
                 + File.separator + "files");
-        ImageConverter imageConverter = new ImageConverter(new File(picfolder, "links.bmp"));
+        ImageConverter imageConverter = new ImageConverter(new File(picfolder, "vorfahrt.bmp"));
         imageConverter.printMatrix();
         FeatureColor[][] leftPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
@@ -81,6 +82,7 @@ public class Test {
         System.out.println(
                 new MaxColorWithoutWhiteFeature().findMaximalColorWithoutWhite(imageConverter.getImageMatrix()));
         System.out.println(new QuadrantOfMaxBlue().findQuadrantWithMaxBlue(imageConverter.getImageMatrix()));
+        System.out.println(new RedAndBlack().checkIfRedAndBlackInPicture(imageConverter.getImageMatrix()));
     }
     
     public static void arrayIntBSP() {
