@@ -12,7 +12,7 @@ import org.toschu.laboraufgabe1.featurechecking.MaxColorWithoutWhiteFeature;
  *
  * @author toschu
  */
-public enum Color {
+public enum FeatureColor {
 
     BLUE(0),
     YELLOW(1),
@@ -22,7 +22,7 @@ public enum Color {
 
     private final int value;
 
-    private Color(int i) {
+    private FeatureColor(int i) {
         this.value = i;
     }
 
@@ -31,23 +31,23 @@ public enum Color {
         return super.toString();
     }
 
-    public static Color getBLUE() {
+    public static FeatureColor getBLUE() {
         return BLUE;
     }
 
-    public static Color getYELLOW() {
+    public static FeatureColor getYELLOW() {
         return YELLOW;
     }
 
-    public static Color getRED() {
+    public static FeatureColor getRED() {
         return RED;
     }
 
-    public static Color getWHITE() {
+    public static FeatureColor getWHITE() {
         return WHITE;
     }
 
-    public static Color getNOTHING() {
+    public static FeatureColor getNOTHING() {
         return NOTHING;
     }
 

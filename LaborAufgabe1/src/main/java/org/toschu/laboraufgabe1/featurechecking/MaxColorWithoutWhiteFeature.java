@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.toschu.laboraufgabe1.featurdefinitions.Color;
+import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 
 /**
  *
@@ -18,17 +18,17 @@ import org.toschu.laboraufgabe1.featurdefinitions.Color;
  */
 public class MaxColorWithoutWhiteFeature {
 
-    private List<Color> colors = Arrays.asList(Color.values());
+    private List<FeatureColor> colors = Arrays.asList(FeatureColor.values());
 
-    public Color findMaximalColorWithoutWhite(Color[][] pictureMatrix) {
-        Map<Color, Integer> colorAndCountMap = new HashMap<>();
-        for (Color currentColor : this.colors) {
+    public FeatureColor findMaximalColorWithoutWhite(FeatureColor[][] pictureMatrix) {
+        Map<FeatureColor, Integer> colorAndCountMap = new HashMap<>();
+        for (FeatureColor currentColor : this.colors) {
             colorAndCountMap.put(currentColor,
                     this.countColorInPicture(pictureMatrix, currentColor));
         }
-        Color maxColor = Color.NOTHING;
+        FeatureColor maxColor = FeatureColor.NOTHING;
         Integer maxCount = Integer.MIN_VALUE;
-        for (Color currentColor : colorAndCountMap.keySet()) {
+        for (FeatureColor currentColor : colorAndCountMap.keySet()) {
             if (colorAndCountMap.get(currentColor) > maxCount) {
                 maxColor = currentColor;
                 maxCount = colorAndCountMap.get(currentColor);
@@ -37,7 +37,7 @@ public class MaxColorWithoutWhiteFeature {
         return maxColor;
     }
 
-    public int countColorInPicture(Color[][] picture, Color wantedColor) {
+    public int countColorInPicture(FeatureColor[][] picture, FeatureColor wantedColor) {
         int countOfColor = 0;
         for (int rowCounter = 0; rowCounter < picture.length; rowCounter++) {
             for (int columnCounter = 0; columnCounter < picture[rowCounter].length; columnCounter++) {

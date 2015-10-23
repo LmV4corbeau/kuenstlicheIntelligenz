@@ -5,11 +5,9 @@
  */
 package org.toschu.laboraufgabe1.featurechecking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
-import org.toschu.laboraufgabe1.featurdefinitions.Color;
+import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 
 /**
@@ -18,8 +16,8 @@ import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
  */
 public class QuadrantOfMaxBlue {
 
-    public Quadrant findQuadrantWithMaxBlue(Color[][] picture) {
-        Map<Quadrant, Color[][]> quadrantsOfPicture;
+    public Quadrant findQuadrantWithMaxBlue(FeatureColor[][] picture) {
+        Map<Quadrant, FeatureColor[][]> quadrantsOfPicture;
         if (!checkPictureForBlue(picture)) {
             return Quadrant.QUADRANT_0;
         } else {
@@ -28,11 +26,11 @@ public class QuadrantOfMaxBlue {
         }
     }
 
-    public boolean checkPictureForBlue(Color[][] quadrand) {
+    public boolean checkPictureForBlue(FeatureColor[][] quadrand) {
         for (int rowCounter = 0; rowCounter < quadrand.length; rowCounter++) {
             for (int columnCount = 0;
                     columnCount < quadrand[rowCounter].length; columnCount++) {
-                if (quadrand[rowCounter][columnCount].equals(Color.BLUE)) {
+                if (quadrand[rowCounter][columnCount].equals(FeatureColor.BLUE)) {
                     return true;
                 }
             }
