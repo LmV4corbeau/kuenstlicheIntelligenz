@@ -23,6 +23,17 @@ public class SplitPictureInParts {
         return splits;
     }
 
+    public Map<Quadrant, Color[][]> buildQuadrandsOFPicture(Color[][] picture) {
+        Map<Quadrant, Color[][]> quadrants = new HashMap<>();
+
+        return quadrants;
+    }
+
+    public Color[][] getVerticalPartsOfPicture(Color[][] picture) {
+        int maxColumCount = getMaxRowCount(picture);
+
+    }
+
     public Color[][] getUpperPartOfPicture(Color[][] picture) {
         double halflength = picture.length / 2;
         Double halfdouble = Math.floor(halflength);
@@ -41,5 +52,15 @@ public class SplitPictureInParts {
         Color[][] lowerPart = new Color[picture.length - half][numberOfElementsInArray];
         System.arraycopy(picture, half, lowerPart, 0, picture.length - half);
         return lowerPart;
+    }
+
+    public int getMaxRowCount(Color[][] picture) {
+        int maxColumnCount = Integer.MIN_VALUE;
+        for (int row = 0; row < picture.length; row++) {
+            if (picture[row].length > maxColumnCount) {
+                maxColumnCount = picture[row].length;
+            }
+        }
+        return maxColumnCount;
     }
 }

@@ -19,7 +19,7 @@ import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 public class QuadrantOfMaxBlue {
 
     public Quadrant findQuadrantWithMaxBlue(Color[][] picture) {
-        Map<Quadrant, Color[][]> quadrantsOfPicture = buildQuadrants(picture);
+        Map<Quadrant, Color[][]> quadrantsOfPicture;
         if (!checkPictureForBlue(picture)) {
             return Quadrant.QUADRANT_0;
         } else {
@@ -38,18 +38,5 @@ public class QuadrantOfMaxBlue {
             }
         }
         return false;
-    }
-
-    public Map<Quadrant, Color[][]> buildQuadrants(Color[][] picture) {
-        Map<Quadrant, Color[][]> quadrants = new HashMap<>();
-        int maxRowCount = picture.length;
-        int maxColumnCount = Integer.MIN_VALUE;
-        Color[][] upperPart
-                = new SplitPictureInParts().getUpperPartOfPicture(picture);
-        Color[][] lowerPart
-                = new SplitPictureInParts().getLowerPartOfPicture(picture);
-        
-        
-        return quadrants;
     }
 }
