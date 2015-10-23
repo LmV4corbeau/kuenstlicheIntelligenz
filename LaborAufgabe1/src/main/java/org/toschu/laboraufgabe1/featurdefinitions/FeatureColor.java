@@ -18,7 +18,8 @@ public enum FeatureColor {
     YELLOW(1),
     RED(2),
     WHITE(3),
-    NOTHING(4);
+    BLACK(4),
+    NOTHING(5);
 
     private final int value;
 
@@ -45,6 +46,10 @@ public enum FeatureColor {
 
     public static FeatureColor getWHITE() {
         return WHITE;
+    }
+
+    public static FeatureColor getBLACK() {
+        return BLACK;
     }
 
     public static FeatureColor getNOTHING() {
