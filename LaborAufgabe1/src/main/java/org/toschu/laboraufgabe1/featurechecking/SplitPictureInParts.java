@@ -27,7 +27,14 @@ public class SplitPictureInParts {
 
     public Map<Quadrant, FeatureColor[][]> buildQuadrandsOFPicture(FeatureColor[][] picture) {
         Map<Quadrant, FeatureColor[][]> quadrants = new HashMap<>();
-
+        FeatureColor[][] upperPartOfPicture = getUpperPartOfPicture(picture);
+        FeatureColor[][] lowerPartOfPicture = getLowerPartOfPicture(picture);
+        List<FeatureColor[][]> upperQuadrants = getVerticalPartsOfPicture(upperPartOfPicture);
+        List<FeatureColor[][]> lowerQuadrants = getVerticalPartsOfPicture(lowerPartOfPicture);
+        quadrants.put(Quadrant.QUADRANT_1, upperQuadrants.get(1));
+        quadrants.put(Quadrant.QUADRANT_2, upperQuadrants.get(0));
+        quadrants.put(Quadrant.QUADRANT_3, lowerQuadrants.get(0));
+        quadrants.put(Quadrant.QUADRANT_4, lowerQuadrants.get(1));
         return quadrants;
     }
 
@@ -53,8 +60,8 @@ public class SplitPictureInParts {
             leftPart[row] = currentLeftPart;
             rightPart[row] = currentRightPart;
         }
-        parts.add(leftPart);
-        parts.add(rightPart);
+        parts.add(0, leftPart);
+        parts.add(1, rightPart);
         return parts;
     }
 
