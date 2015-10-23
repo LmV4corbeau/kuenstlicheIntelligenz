@@ -20,7 +20,7 @@ public class ImageConverter {
         return matrix;
     }
 
-    ImageConverter(File file) {
+    public ImageConverter(File file) {
         try {
             this.image = ImageIO.read(file);
             this.matrix = new FeatureColor[this.image.getWidth()][this.image.getHeight()];
@@ -56,10 +56,14 @@ public class ImageConverter {
         }
     }
 
-    private void printMatrix() {
+    public void printMatrix() {
         for (int y = 0; y < this.image.getHeight(); y++) {
             for (int x = 0; x < this.image.getWidth(); x++) {
-                System.out.print(this.matrix[x][y]);
+                if (this.matrix[x][y] != FeatureColor.NOTHING) {
+                    System.out.print(this.matrix[x][y]);
+                }else{
+                    System.out.print(" ");
+                }
             }
             System.out.println();
         }

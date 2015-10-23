@@ -27,7 +27,7 @@ public enum FeatureColor {
 
     @Override
     public String toString() {
-        return super.toString();
+        return ""+getValue();
     }
 
     public static FeatureColor getBLUE() {

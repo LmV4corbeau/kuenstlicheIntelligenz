@@ -20,21 +20,21 @@ public class SplitPictureInParts {
 
     public Map<Quadrant, FeatureColor[][]> splitPictureOnHorizonalLine(FeatureColor[][] picture) {
         Map<Quadrant, FeatureColor[][]> splits = new HashMap<>();
-        splits.put(Quadrant.QUADRANT_1, getUpperPartOfPicture(picture));
-        splits.put(Quadrant.QUADRANT_4, getLowerPartOfPicture(picture));
+        splits.put(Quadrant.QUADRANT_1, rotateMatrix(getLeftPartOfPicture(picture)));
+        splits.put(Quadrant.QUADRANT_4, rotateMatrix(getRightPartOfPicture(picture)));
         return splits;
     }
 
     public Map<Quadrant, FeatureColor[][]> buildQuadrandsOFPicture(FeatureColor[][] picture) {
         Map<Quadrant, FeatureColor[][]> quadrants = new HashMap<>();
-        FeatureColor[][] upperPartOfPicture = getUpperPartOfPicture(picture);
-        FeatureColor[][] lowerPartOfPicture = getLowerPartOfPicture(picture);
-        List<FeatureColor[][]> upperQuadrants = getVerticalPartsOfPicture(upperPartOfPicture);
-        List<FeatureColor[][]> lowerQuadrants = getVerticalPartsOfPicture(lowerPartOfPicture);
-        quadrants.put(Quadrant.QUADRANT_1, upperQuadrants.get(1));
-        quadrants.put(Quadrant.QUADRANT_2, upperQuadrants.get(0));
-        quadrants.put(Quadrant.QUADRANT_3, lowerQuadrants.get(1));
-        quadrants.put(Quadrant.QUADRANT_4, lowerQuadrants.get(0));
+        FeatureColor[][] leftPartOfPicture = getLeftPartOfPicture(picture);
+        FeatureColor[][] rightPartOfPicture = getRightPartOfPicture(picture);
+        List<FeatureColor[][]> leftQuadrants = getVerticalPartsOfPicture(leftPartOfPicture);
+        List<FeatureColor[][]> rightQuadrants = getVerticalPartsOfPicture(rightPartOfPicture);
+        quadrants.put(Quadrant.QUADRANT_1, rotateMatrix(rightQuadrants.get(0)));
+        quadrants.put(Quadrant.QUADRANT_2, rotateMatrix(leftQuadrants.get(0)));
+        quadrants.put(Quadrant.QUADRANT_3, rotateMatrix(leftQuadrants.get(1)));
+        quadrants.put(Quadrant.QUADRANT_4, rotateMatrix(rightQuadrants.get(1)));
         return quadrants;
     }
 
@@ -59,13 +59,14 @@ public class SplitPictureInParts {
                     currentRightPart, 0, currentColumnCount - currenthalf);
             leftPart[row] = currentLeftPart;
             rightPart[row] = currentRightPart;
+
         }
         parts.add(0, leftPart);
         parts.add(1, rightPart);
         return parts;
     }
 
-    public FeatureColor[][] getUpperPartOfPicture(FeatureColor[][] picture) {
+    public FeatureColor[][] getLeftPartOfPicture(FeatureColor[][] picture) {
         double halflength = picture.length / 2;
         Double halfdouble = Math.floor(halflength);
         int half = halfdouble.intValue();
@@ -75,13 +76,13 @@ public class SplitPictureInParts {
         return upperPart;
     }
 
-    public FeatureColor[][] getLowerPartOfPicture(FeatureColor[][] picture) {
+    public FeatureColor[][] getRightPartOfPicture(FeatureColor[][] picture) {
         double halflength = picture.length / 2;
         Double halfdouble = Math.floor(halflength);
         int half = halfdouble.intValue();
         int numberOfElementsInArray = picture[0].length;
         FeatureColor[][] lowerPart = new FeatureColor[picture.length - half][numberOfElementsInArray];
-        System.arraycopy(picture, half, lowerPart, 0, picture.length - half);
+        System.arraycopy(picture, half, lowerPart, 0, picture.length - half);        
         return lowerPart;
     }
 
@@ -104,11 +105,28 @@ public class SplitPictureInParts {
                 for (int column = 0;
                         column < quadrants.get(currentQuadrant)[row].length;
                         column++) {
+                    if(quadrants.get(currentQuadrant)[row][column] != FeatureColor.NOTHING){
                     System.out.print(quadrants.get(currentQuadrant)[row][column]);
+                    }else{
+                        System.out.print(" ");
+                    }
+                    
                 }
                 System.out.println("");
             }
             System.out.println("--------------------------------------");
         }
     }
+
+    public FeatureColor[][] rotateMatrix(FeatureColor[][] picture) {
+        FeatureColor[][] roteatedPicture
+                = new FeatureColor[picture[0].length][picture.length];
+        for (int i = 0; i < picture[0].length; i++) {
+            for (int j = picture.length - 1; j >= 0; j--) {
+                roteatedPicture[i][j] = picture[j][i];
+            }
+        }
+        return roteatedPicture;
+    }
+
 }
