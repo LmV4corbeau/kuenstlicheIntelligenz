@@ -65,6 +65,34 @@ public class SplitPictureInParts {
         parts.add(1, rightPart);
         return parts;
     }
+    
+    public List<FeatureColor[][]> getHorizontalPartsOfPicture(FeatureColor[][] picture) {
+        List<FeatureColor[][]> parts = new ArrayList<>();
+        int maxRowCount = picture.length;
+        int maxColumnCount = getMaxColumnCount(picture);
+        double maxColumnCountHalf = maxColumnCount / 2;
+        Double halfdouble = Math.floor(maxColumnCountHalf);
+        int half = halfdouble.intValue();
+        FeatureColor[][] leftPart = new FeatureColor[maxRowCount][];
+        FeatureColor[][] rightPart = new FeatureColor[maxRowCount][];
+        for (int row = 0; row < picture.length; row++) {
+            int currentColumnCount = picture[row].length;
+            double currentCoulumnCounthalf = currentColumnCount / 2;
+            Double currenthalfdouble = Math.floor(currentCoulumnCounthalf);
+            int currenthalf = currenthalfdouble.intValue();
+            FeatureColor[] currentLeftPart = new FeatureColor[currenthalf];
+            FeatureColor[] currentRightPart = new FeatureColor[currentColumnCount - currenthalf];
+            System.arraycopy(picture[row], 0, currentLeftPart, 0, currenthalf);
+            System.arraycopy(picture[row], currenthalf,
+                    currentRightPart, 0, currentColumnCount - currenthalf);
+            leftPart[row] = currentLeftPart;
+            rightPart[row] = currentRightPart;
+
+        }
+        parts.add(0, leftPart);
+        parts.add(1, rightPart);
+        return parts;
+    }
 
     public FeatureColor[][] getLeftPartOfPicture(FeatureColor[][] picture) {
         double halflength = picture.length / 2;
@@ -98,7 +126,7 @@ public class SplitPictureInParts {
 
     public void printQuadrants(Map<Quadrant, FeatureColor[][]> quadrants) {
         for (Quadrant currentQuadrant : quadrants.keySet()) {
-            System.out.println(currentQuadrant);
+            //System.out.println(currentQuadrant);
             for (int row = 0;
                     row < quadrants.get(currentQuadrant).length;
                     row++) {
@@ -106,15 +134,15 @@ public class SplitPictureInParts {
                         column < quadrants.get(currentQuadrant)[row].length;
                         column++) {
                     if(quadrants.get(currentQuadrant)[row][column] != FeatureColor.NOTHING){
-                    System.out.print(quadrants.get(currentQuadrant)[row][column]);
+                    //System.out.print(quadrants.get(currentQuadrant)[row][column]);
                     }else{
-                        System.out.print(" ");
+                        //System.out.print(" ");
                     }
                     
                 }
-                System.out.println("");
+                //System.out.println("");
             }
-            System.out.println("--------------------------------------");
+            //System.out.println("--------------------------------------");
         }
     }
 

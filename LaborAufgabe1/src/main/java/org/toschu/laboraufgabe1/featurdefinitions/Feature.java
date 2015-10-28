@@ -11,15 +11,16 @@ package org.toschu.laboraufgabe1.featurdefinitions;
  */
 public enum Feature {
 
-    
+    //RedAndBlack.java
+//RedAndBlack.java
     RED_AND_BLACK(0),
-    
+    //MaxRedPartInHorizontalPart.java
     MAX_RED_PART_IN_HORIZONTAL_PART(1),
-    
-    WHITE_PART_IN_PITCURE_TO_RED(2),
+    //WhitePartInPictureToRed.java
+    WHITE_PART_IN_PICTURE_TO_RED(2),
     //QuadrantOfMaxBlue.java
     MAX_WHITE_PART_TO_BLUE_IN_QUADRANT(3),
-   //MaxColorWithoutWithFeature.java
+    //MaxColorWithoutWithFeature.java
     MAX_COLOR_WITHOUT_WHITE(4);
 
     private final int value;

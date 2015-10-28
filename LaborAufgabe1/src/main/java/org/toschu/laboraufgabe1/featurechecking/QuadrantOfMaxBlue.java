@@ -37,7 +37,7 @@ public class QuadrantOfMaxBlue {
                         = colorWithoutWhiteFeature.
                         countColorInPicture(
                                 quadrantsOfPicture.get(currentQuadrant), FeatureColor.WHITE);
-                System.out.println(currentQuadrant + ":\t" + countColorInPicture);
+                //System.out.println(currentQuadrant + ":\t" + countColorInPicture);
                 if (countColorInPicture > maxBlueCountInQuadrant) {
                     maxQuadrant = currentQuadrant;
                     maxBlueCountInQuadrant = countColorInPicture;

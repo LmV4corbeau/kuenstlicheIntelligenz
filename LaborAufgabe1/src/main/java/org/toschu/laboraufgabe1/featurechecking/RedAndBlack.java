@@ -24,11 +24,11 @@ public class RedAndBlack {
         double blackInPercentage = blackcount / pixels;
         double wantedColorsSum = redInPercentage + blackInPercentage + blueInPercentage;
         double otherSum = 1 - wantedColorsSum;
-        System.out.println("Pixels:" + pixels);
-        System.out.println("red:\t" + redInPercentage + "\t cout: " + redcount);
-        System.out.println("blue:\t" + blueInPercentage + "\t cout: " + bluecount);
-        System.out.println("black:\t" + blackInPercentage + "\t cout: " + blackcount);
-        System.out.println("wantedColorSum:\t" + wantedColorsSum);
+        //System.out.println("Pixels:" + pixels);
+        //System.out.println("red:\t" + redInPercentage + "\t cout: " + redcount);
+        //System.out.println("blue:\t" + blueInPercentage + "\t cout: " + bluecount);
+        //System.out.println("black:\t" + blackInPercentage + "\t cout: " + blackcount);
+        //System.out.println("wantedColorSum:\t" + wantedColorsSum);
         if (redInPercentage > 0.0
                 && (blueInPercentage > 0.01
                 || blackInPercentage > 0.01)) {
