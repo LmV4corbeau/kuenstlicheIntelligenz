@@ -13,7 +13,7 @@ import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
  */
 public class RedAndBlack {
 
-    public boolean checkIfRedAndBlackInPicture(FeatureColor[][] picture) {
+    public int checkIfRedAndBlackInPicture(FeatureColor[][] picture) {
         MaxColorWithoutWhiteFeature feature = new MaxColorWithoutWhiteFeature();
         double redcount = feature.countColorInPicture(picture, FeatureColor.RED);
         double bluecount = feature.countColorInPicture(picture, FeatureColor.BLUE);
@@ -32,9 +32,9 @@ public class RedAndBlack {
         if (redInPercentage > 0.0
                 && (blueInPercentage > 0.01
                 || blackInPercentage > 0.01)) {
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
 
     }

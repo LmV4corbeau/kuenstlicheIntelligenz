@@ -6,7 +6,9 @@
 package org.toschu.laboraufgabe1;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Map;
+import org.toschu.laboraufgabe1.analysis.FeatureVectorBuilder;
 import org.toschu.laboraufgabe1.analysis.ImageConverter;
 import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
@@ -15,7 +17,7 @@ import org.toschu.laboraufgabe1.featurechecking.MaxRedPartInHorizontalPart;
 import org.toschu.laboraufgabe1.featurechecking.QuadrantOfMaxBlue;
 import org.toschu.laboraufgabe1.featurechecking.RedAndBlack;
 import org.toschu.laboraufgabe1.featurechecking.SplitPictureInParts;
-import sun.awt.X11.XConstants;
+import org.toschu.laboraufgabe1.featurechecking.WhitePartInPictureToRed;
 
 /**
  *
@@ -24,7 +26,6 @@ import sun.awt.X11.XConstants;
 public class Test {
 
     public static void main(String[] args) {
-        
 
         FeatureColor[][] pic = new FeatureColor[][]{
             new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE},
@@ -46,7 +47,8 @@ public class Test {
                 + File.separator + "main"
                 + File.separator + "java"
                 + File.separator + "files");
-        ImageConverter imageConverter = new ImageConverter(new File(picfolder, "vorfahrt.bmp"));
+        File picture = new File(picfolder, "kreuzung.bmp");
+        ImageConverter imageConverter = new ImageConverter(picture);
         imageConverter.printMatrix();
         FeatureColor[][] leftPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
@@ -80,7 +82,6 @@ public class Test {
 
         SplitPictureInParts inParts = new SplitPictureInParts();
         inParts.printQuadrants(inParts.buildQuadrandsOFPicture(imageConverter.getImageMatrix()));
-
         System.out.println("MaxColorWithoutWithe:\t"
                 + new MaxColorWithoutWhiteFeature().findMaximalColorWithoutWhite(
                         imageConverter.getImageMatrix()));
@@ -93,6 +94,14 @@ public class Test {
         System.out.println("MaxRedInHorizontalPart:\t"
                 + new MaxRedPartInHorizontalPart().checkWithPartHaveMoreRed(
                         imageConverter.getImageMatrix()));
+        System.out.println("RedToWith:\t"
+                + new WhitePartInPictureToRed().getWhiteToRedRelation(
+                        imageConverter.getImageMatrix()));
+        System.out.println(new Date().toString());
+        TomFeatureVector vector = new FeatureVectorBuilder().generateFeatureVector(picture);
+        System.out.println(vector.toString());
+        System.out.println(vector.toStringHumanReadable());
+        System.out.println(new Date().toString());
     }
 
 }

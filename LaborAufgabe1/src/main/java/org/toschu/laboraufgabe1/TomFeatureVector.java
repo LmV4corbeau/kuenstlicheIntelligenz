@@ -5,8 +5,10 @@
  */
 package org.toschu.laboraufgabe1;
 
+import com.sun.javafx.image.impl.IntArgb;
 import java.util.HashMap;
 import java.util.Map;
+import org.toschu.laboraufgabe1.featurdefinitions.Feature;
 import org.toschu.laboraufgabe1.framework.Concept;
 import org.toschu.laboraufgabe1.framework.FeatureVector;
 
@@ -49,6 +51,34 @@ public class TomFeatureVector implements FeatureVector {
         } else {
             return this.features.get(i);
         }
+    }
+
+    public void addFeatureToVector(Feature feature, int value) {
+        if (this.features.containsKey(feature.getValue())) {
+            this.features.remove(feature.getValue());
+        }
+        this.features.put(feature.getValue(), value);
+
+    }
+
+    @Override
+    public String toString() {
+        return "TomFeatureVector{\n" + "features=" + features
+                + "\n, concept=" + concept
+                + "\n}";
+    }
+
+    public String toStringHumanReadable() {
+        String readable = "TomFeatureVector{\n" + "features=\n";
+
+        for (Integer currentFeature : this.features.keySet()) {
+            readable += Feature.byValue(currentFeature);
+            readable += ":=";
+            readable += this.features.get(currentFeature);
+            readable += "  |  ";
+        }
+        readable += "\n, concept=" + concept + "\n}";
+        return readable;
     }
 
 }
