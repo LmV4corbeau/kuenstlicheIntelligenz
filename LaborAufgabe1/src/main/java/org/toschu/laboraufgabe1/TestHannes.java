@@ -23,26 +23,28 @@ import org.toschu.laboraufgabe1.featurechecking.WhitePartInPictureToRed;
  *
  * @author toschu
  */
-public class Test {
+public class TestHannes {
 
     public static void main(String[] args) {
 
         FeatureColor[][] pic = new FeatureColor[][]{
-            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE},
-            new FeatureColor[]{FeatureColor.YELLOW, FeatureColor.RED},
-            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.WHITE},
-            new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE}
+                new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE},
+                new FeatureColor[]{FeatureColor.YELLOW, FeatureColor.RED},
+                new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.WHITE},
+                new FeatureColor[]{FeatureColor.NOTHING, FeatureColor.BLUE}
         };
         Map<Quadrant, FeatureColor[][]> buildQuadrandsOFPicture
                 = new SplitPictureInParts().buildQuadrandsOFPicture(pic);
         new SplitPictureInParts().printQuadrants(buildQuadrandsOFPicture);
 
         File picfolder = new File(System.getProperty("user.dir")
+                + File.separator + "LaborAufgabe1"
                 + File.separator + "src"
                 + File.separator + "main"
                 + File.separator + "java"
                 + File.separator + "files");
         System.out.println(System.getProperty("user.dir")
+                + File.separator + "LaborAufgabe1"
                 + File.separator + "src"
                 + File.separator + "main"
                 + File.separator + "java"
@@ -52,10 +54,10 @@ public class Test {
         imageConverter.printMatrix();
         FeatureColor[][] leftPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
-                        new SplitPictureInParts().getLeftPartOfPicture(imageConverter.getImageMatrix()));
+                new SplitPictureInParts().getLeftPartOfPicture(imageConverter.getImageMatrix()));
         FeatureColor[][] rightPartOfPicture
                 = new SplitPictureInParts().rotateMatrix(
-                        new SplitPictureInParts().getRightPartOfPicture(imageConverter.getImageMatrix()));
+                new SplitPictureInParts().getRightPartOfPicture(imageConverter.getImageMatrix()));
         System.out.println("-.-");
 
         for (FeatureColor[] currentRowOfLeftPart : leftPartOfPicture) {
@@ -84,19 +86,19 @@ public class Test {
         inParts.printQuadrants(inParts.buildQuadrandsOFPicture(imageConverter.getImageMatrix()));
         System.out.println("MaxColorWithoutWithe:\t"
                 + new MaxColorWithoutWhiteFeature().findMaximalColorWithoutWhite(
-                        imageConverter.getImageMatrix()));
+                imageConverter.getImageMatrix()));
         System.out.println("QuadrantOfMaxBlue:\t"
                 + new QuadrantOfMaxBlue().findQuadrantWithMaxBlue(
-                        imageConverter.getImageMatrix()));
+                imageConverter.getImageMatrix()));
         System.out.println("RedAndBlack:\t"
                 + new RedAndBlack().checkIfRedAndBlackInPicture(
-                        imageConverter.getImageMatrix()));
+                imageConverter.getImageMatrix()));
         System.out.println("MaxRedInHorizontalPart:\t"
                 + new MaxRedPartInHorizontalPart().checkWithPartHaveMoreRed(
-                        imageConverter.getImageMatrix()));
+                imageConverter.getImageMatrix()));
         System.out.println("RedToWith:\t"
                 + new WhitePartInPictureToRed().getWhiteToRedRelation(
-                        imageConverter.getImageMatrix()));
+                imageConverter.getImageMatrix()));
         System.out.println(new Date().toString());
         TomFeatureVector vector = new FeatureVectorBuilder().generateFeatureVector(picture);
         System.out.println(vector.toString());
