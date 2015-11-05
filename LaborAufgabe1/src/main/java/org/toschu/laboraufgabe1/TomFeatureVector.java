@@ -5,18 +5,18 @@
  */
 package org.toschu.laboraufgabe1;
 
-import com.sun.javafx.image.impl.IntArgb;
 import java.util.HashMap;
 import java.util.Map;
 import org.toschu.laboraufgabe1.featurdefinitions.Feature;
 import org.toschu.laboraufgabe1.framework.Concept;
 import org.toschu.laboraufgabe1.framework.FeatureVector;
+import org.toschu.repositoryapi.api.Identity;
 
 /**
  *
  * @author toschu
  */
-public class TomFeatureVector implements FeatureVector {
+public class TomFeatureVector extends Identity implements FeatureVector {
 
     private Map<Integer, Integer> features;
     private Concept concept;
@@ -27,6 +27,10 @@ public class TomFeatureVector implements FeatureVector {
 
     public TomFeatureVector() {
         this.features = new HashMap<>();
+    }
+
+    public void setConcept(Concept concept) {
+        this.concept = concept;
     }
 
     @Override
@@ -79,6 +83,14 @@ public class TomFeatureVector implements FeatureVector {
         }
         readable += "\n, concept=" + concept + "\n}";
         return readable;
+    }
+
+    public Map<Integer, Integer> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(Map<Integer, Integer> features) {
+        this.features = features;
     }
 
 }

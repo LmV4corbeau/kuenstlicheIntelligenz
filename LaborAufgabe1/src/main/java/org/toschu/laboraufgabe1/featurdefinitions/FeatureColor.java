@@ -12,12 +12,12 @@ package org.toschu.laboraufgabe1.featurdefinitions;
  */
 public enum FeatureColor {
 
-    BLUE(0),
+    BLUE(5),
     YELLOW(1),
     RED(2),
     WHITE(3),
     BLACK(4),
-    NOTHING(5);
+    NOTHING(0);
 
     private final int value;
 
