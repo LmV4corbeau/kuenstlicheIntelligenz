@@ -38,7 +38,7 @@ public class PerzeptronNetworkEvaluator {
      * the percentage (between 0 und 100) of vectors from the data to be used
      * for the test
      */
-    private int testRate = 100;
+    private int testRate = 50;
     private int numberOfTests = 100;
 
     public PerzeptronNetworkEvaluator() {
@@ -47,7 +47,7 @@ public class PerzeptronNetworkEvaluator {
 
     public PerzeptronNetworkEvaluator(String filename,
             PerzeptronNetwork network,
-            int testRate, int numberOfTests) {
+            int testRate, int numberOfTests, int learingRate) {
         List<FeatureVector> vectors = readData(filename);
         float success = 0;
         float unknown = 0;
@@ -61,7 +61,7 @@ public class PerzeptronNetworkEvaluator {
             Learner learner
                     = new PerzeptronLearner(network,
                             network.getMappingConceptToPerzeptron(),
-                            this.testRate);
+                            learingRate);
             vectors = mixData(vectors);
             List<List<FeatureVector>> sets = extractTrainingData(vectors);
             learner.learn(sets.get(0));
@@ -70,6 +70,7 @@ public class PerzeptronNetworkEvaluator {
             unknown += result.get(1) / (float) sets.get(1).size();
             wrong += result.get(2) / (float) sets.get(1).size();
             i++;
+            System.out.println("");
         } while (i < numberOfTests);
         System.out.println("Result after "
                 + numberOfTests + " Test with "
@@ -200,31 +201,54 @@ public class PerzeptronNetworkEvaluator {
         } else {
             filename = args[0];
         }
-        System.out.println("");
+
+        int[] testRates = {10, 20, 30, 40, 50, 60, 70, 80};
+        int[] learingTerms = {50, 10, 150, 200, 250, 300, 400, 500};
+
+        for (int i = 0; i < testRates.length; i++) {
+            for (int j = 0; j < learingTerms.length; j++) {
+                tests(filename, testRates[i], learingTerms[j]);
+            }
+        }
+    }
+
+    public static void tests(String filename, int testRate, int learingTerms) {
+        System.out.println("First Evaluation run:");
+        System.out.println("numberof Tests:\t100");
+        System.out.println("Testrate:\t" + testRate);
+        System.out.println("LearingTerms:\t" + learingTerms);
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVorfahrtStrasse
-                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtStrasse(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyVorfahrtStrasse(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyRight
-                = new PerzeptronNetworkEvaluator(filename, new OnlyRight(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyRight(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyLeft
-                = new PerzeptronNetworkEvaluator(filename, new OnlyLeft(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyLeft(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyStop
-                = new PerzeptronNetworkEvaluator(filename, new OnlyStop(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyStop(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVorGew
-                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtGewaehren(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyVorfahrtGewaehren(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVonRechts
-                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtvonRechts(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new OnlyVorfahrtvonRechts(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorMapping6
-                = new PerzeptronNetworkEvaluator(filename, new Mapping6(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new Mapping6(),testRate, 100,learingTerms);
         System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorMapping3
-                = new PerzeptronNetworkEvaluator(filename, new Mapping3(), 100, 100);
+                = new PerzeptronNetworkEvaluator(
+                        filename, new Mapping3(),testRate, 100,learingTerms);
         System.out.println("");
-
     }
+
 }

@@ -59,6 +59,7 @@ public class PerzeptronLearner implements Learner {
                     }
                 }
             }
+            System.out.print("*");
         }
     }
 
