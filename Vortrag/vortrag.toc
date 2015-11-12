@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {english}
+\beamer@sectionintoc {2}{Netztopologie}{3}{0}{1}
+\beamer@sectionintoc {3}{Questions?}{6}{0}{2}

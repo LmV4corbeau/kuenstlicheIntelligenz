@@ -1,0 +1,20 @@
+\frametitle{Watchdog}\framesubtitle {Prüfung ob ein Dienst läuft}
+	\begin{lstlisting}
+public static boolean checkIfProcessIsRunning(String name)
+       throws InterruptedException, IOException {
+  ...
+  String result = commandRunner
+         .runShellCommand(
+          "ps auxwww | grep -v grep | grep -i " + name);
+  ...
+  for (String currentLine : resultLines) {
+    String[] splitedLine = currentLine.split(" ");
+    if (splitedLine.length >= 7) {
+      if (splitedLine[7].contains("X")
+         || splitedLine[7].contains("T")
+         || splitedLine[7].contains("Z")) {
+        return false;
+    }}}
+  return true;
+}
+	\end{lstlisting}

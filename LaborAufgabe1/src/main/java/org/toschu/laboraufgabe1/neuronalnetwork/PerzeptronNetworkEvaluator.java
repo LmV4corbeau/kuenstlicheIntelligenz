@@ -154,7 +154,7 @@ public class PerzeptronNetworkEvaluator {
         List<List<FeatureVector>> result = new LinkedList<>();
         List<FeatureVector> trainingData = new LinkedList<>();
         List<FeatureVector> testData = new LinkedList<>();
-        int cut = (int) ((testRate / 100f) * vectors.size());
+        int cut = (int) ((testRate / 100) * vectors.size());
         trainingData.addAll(vectors.subList(0, cut));
         testData.addAll(vectors.subList(cut + 1, vectors.size()));
 

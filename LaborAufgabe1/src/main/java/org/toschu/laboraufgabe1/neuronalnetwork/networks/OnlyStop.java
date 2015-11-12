@@ -89,6 +89,8 @@ public class OnlyStop extends PerzeptronNetwork {
                 = new NeuronalEdge(BLUECOUNT, stop, true);
         NeuronalEdge yellow
                 = new NeuronalEdge(YELLOWCOUNT, stop, true);
+        NeuronalEdge rab
+                = new NeuronalEdge(RED_AND_BLACK, stop, true);
     }
 
     public static Map<Concept, List<Perzeptron>> mapping() {
