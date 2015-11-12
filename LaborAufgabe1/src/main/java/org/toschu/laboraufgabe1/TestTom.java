@@ -23,10 +23,19 @@ public class TestTom {
         System.out.println(new Date().toString());
         List<FeatureVector> buildFeatureVectors
                 = convertPicturesToFeatureVector.buildFeatureVectors();
+        System.out.println(buildFeatureVectors.getClass().toString());
+        buildFeatureVectors.stream().forEach((featureVector) -> {
+            if (featureVector.getConcept() != null) {
+                //System.out.println(featureVector.getConcept());
+            } else {
+                System.out.println("NULL!!!!");
+            }
+        });
         System.out.println(new Date().toString());
         FeatureSaver featureSaver = new FeatureSaver();
         featureSaver.saveVectors(buildFeatureVectors);
         System.out.println(new Date().toString());
+        System.out.println(buildFeatureVectors.size());
     }
 
 }

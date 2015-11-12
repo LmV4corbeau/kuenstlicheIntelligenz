@@ -11,11 +11,11 @@ package org.toschu.laboraufgabe1.featurdefinitions;
  */
 public enum Quadrant {
 
-    QUADRANT_0(0),
-    QUADRANT_1(1),
-    QUADRANT_2(2),
-    QUADRANT_3(3),
-    QUADRANT_4(4);
+    QUADRANT_0(4),
+    QUADRANT_1(0),
+    QUADRANT_2(1),
+    QUADRANT_3(2),
+    QUADRANT_4(3);
 
     private final int value;
 

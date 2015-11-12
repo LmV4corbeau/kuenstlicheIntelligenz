@@ -12,8 +12,8 @@ package org.toschu.laboraufgabe1.featurdefinitions;
 public enum HorizontalPart {
 
     TOP(1),
-    BOTTOM(2),
-    EITHER(0);
+    BOTTOM(0),
+    EITHER(2);
 
     private int value;
 

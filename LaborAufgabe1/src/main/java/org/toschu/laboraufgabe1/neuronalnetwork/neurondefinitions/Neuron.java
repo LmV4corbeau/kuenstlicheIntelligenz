@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.toschu.laboraufgabe1.neuronalnetwork.neuron;
+package org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions;
 
-import java.util.List;
+import org.toschu.laboraufgabe1.framework.FeatureVector;
 
 /**
  *
@@ -17,7 +17,7 @@ public abstract class Neuron {
 
     public abstract void addInput(NeuronalEdge edge);
 
-    public abstract double getOutput();
+    public abstract Double getOutput();
 
-    public abstract void computeOutPut();
+    public abstract Double computeOutPut(FeatureVector feature);
 }

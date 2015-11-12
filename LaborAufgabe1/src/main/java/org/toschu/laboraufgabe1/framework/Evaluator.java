@@ -15,12 +15,16 @@ public class Evaluator {
      */
     private static int testRate = 40;
 
+    public Evaluator() {
+
+    }
+
     public Evaluator(String filename) {
         List<FeatureVector> vectors = readData(filename);
 
         Learner learner = new DummyLearner();
 
-		// TODO: folgendes muss zur Evaluierung mehrfach ausgef�hrt werden
+        // TODO: folgendes muss zur Evaluierung mehrfach ausgef�hrt werden
         // Verschiedene Teilmengen finden und Verschiedene Reihenfolgen festlegen,
         // wie oft, das h�ngt vom gew�nschten Vertrauensintervall ab
         do {

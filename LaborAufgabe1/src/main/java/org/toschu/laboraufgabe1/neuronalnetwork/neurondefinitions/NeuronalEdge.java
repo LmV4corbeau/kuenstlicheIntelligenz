@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.toschu.laboraufgabe1.neuronalnetwork.neuron;
+package org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions;
+
+import java.util.Random;
 
 /**
  *
@@ -21,8 +23,19 @@ public class NeuronalEdge {
         this.source = source;
         this.destination = destination;
         this.weight = weight;
-        this.inhibitory = inhibitory;
         this.destination.addInput(this);
+    }
+
+    public NeuronalEdge(Neuron source, Neuron destination) {
+        this.source = source;
+        this.destination = destination;
+        this.destination.addInput(this);
+        initialize();
+    }
+
+    public void initialize() {
+        Random random = new Random();
+        this.weight = random.nextDouble();
     }
 
     public NeuronalEdge clone() {

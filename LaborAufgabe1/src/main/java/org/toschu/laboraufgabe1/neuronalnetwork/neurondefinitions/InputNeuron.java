@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.toschu.laboraufgabe1.neuronalnetwork.neuron;
+package org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions;
 
 import org.toschu.laboraufgabe1.featurdefinitions.Feature;
+import org.toschu.laboraufgabe1.framework.FeatureVector;
 
 /**
  *
@@ -13,35 +14,44 @@ import org.toschu.laboraufgabe1.featurdefinitions.Feature;
  */
 public class InputNeuron extends Neuron {
 
-    private double input;
+    private Double output;
     private String name;
     private Feature feature;
+    private final static String neutralElement = "neutral";
 
-    public InputNeuron(double input, String name, Feature feature) {
-        this.input = input;
+    public InputNeuron(Double output, String name, Feature feature) {
+        this.output = output;
         this.name = name;
         this.feature = feature;
     }
 
     @Override
-    public double getOutput() {
-        return this.input;
+    public Double getOutput() {
+        return this.output;
     }
 
     @Override
-    public void computeOutPut() {
+    public Double computeOutPut(FeatureVector featureVector) {
+        if (this.feature == null) {
+            this.output = -1.0;
+        } else {
+            int value = featureVector.getFeatureValue(this.feature.getValue());
+            this.output = new Double(value);
+        }
+        //System.out.println(this.name + ":\t" + this.output);
+        return this.output;
     }
 
     @Override
     public void addInput(NeuronalEdge edge) {
     }
 
-    public double getInput() {
-        return input;
+    public Double getInput() {
+        return output;
     }
 
-    public void setInput(double input) {
-        this.input = input;
+    public void setInput(Double input) {
+        this.output = input;
     }
 
     public Feature getFeature() {
@@ -60,10 +70,14 @@ public class InputNeuron extends Neuron {
         this.name = name;
     }
 
+    public static String getNeutralElement() {
+        return neutralElement;
+    }
+
     @Override
     public String toString() {
         return "\nInputNeuron{\n"
-                + "\t" + "input=" + input + "\n"
+                + "\t" + "input=" + output + "\n"
                 + "\t" + ", name=" + name + "\n"
                 + "\t" + ", feature=" + feature + "\n"
                 + '}';

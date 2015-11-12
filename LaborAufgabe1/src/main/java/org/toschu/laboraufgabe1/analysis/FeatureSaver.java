@@ -6,14 +6,10 @@
 package org.toschu.laboraufgabe1.analysis;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import org.toschu.laboraufgabe1.TomFeatureVector;
 import org.toschu.laboraufgabe1.framework.FeatureVector;
-import org.toschu.repositoryapi.api.Implemented.JSONRepository;
-import org.toschu.repositoryapi.api.Repository;
 
 /**
  *

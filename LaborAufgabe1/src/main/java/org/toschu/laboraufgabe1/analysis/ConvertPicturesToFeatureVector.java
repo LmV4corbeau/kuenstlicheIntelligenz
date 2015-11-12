@@ -68,7 +68,7 @@ public class ConvertPicturesToFeatureVector {
     public List<FeatureVector> buildFeatureVectorsFromFiles(List<File> pictures, Concept concept) {
         System.out.println(concept.toString() + "\tSize:\t" + pictures.size());
         List<FeatureVector> featureVectors = new ArrayList<>();
-        pictures.parallelStream().forEach((File currentPicture) -> {
+        pictures.stream().forEach((File currentPicture) -> {
             FeatureVectorBuilder builder = new FeatureVectorBuilder();
             TomFeatureVector currentFeatureVector
                     = builder.generateFeatureVector(currentPicture);
@@ -98,23 +98,24 @@ public class ConvertPicturesToFeatureVector {
         System.out.println(folder.getName());
         List<File> children = new ArrayList<>();
         int counter = 0;
-        for (File currentChildren : folder.listFiles()) {
-            if (currentChildren.isFile()
-                    && (currentChildren.getName().endsWith(".bmp")
-                    || currentChildren.getName().endsWith(".jpg"))) {
-                System.out.print("+");
-                counter++;
-                children.add(currentChildren);
-            } else if (currentChildren.isDirectory()) {
-                children.addAll(getFilesFromFolder(currentChildren));
+        if (folder.exists()) {
+            for (File currentChildren : folder.listFiles()) {
+                if (currentChildren.isFile()
+                        && (currentChildren.getName().endsWith(".bmp")
+                        || currentChildren.getName().endsWith(".jpg"))) {
+                    System.out.print("+");
+                    counter++;
+                    children.add(currentChildren);
+                } else if (currentChildren.isDirectory()) {
+                    children.addAll(getFilesFromFolder(currentChildren));
+                }
+                if (counter >= 25) {
+                    System.out.println("");
+                    counter = 0;
+                }
             }
-            if (counter >= 25) {
-                System.out.println("");
-                counter = 0;
-            }
+            System.out.println("|");
         }
-        System.out.println("|");
         return children;
     }
-
 }

@@ -8,8 +8,11 @@ package org.toschu.laboraufgabe1.neuronalnetwork;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.toschu.laboraufgabe1.neuronalnetwork.neuron.Neuron;
-import org.toschu.laboraufgabe1.neuronalnetwork.neuron.NeuronalEdge;
+import org.toschu.laboraufgabe1.framework.FeatureVector;
+import org.toschu.laboraufgabe1.neuronalnetwork.networks.Mapping3;
+import org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions.InputNeuron;
+import org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions.Neuron;
+import org.toschu.laboraufgabe1.neuronalnetwork.neurondefinitions.NeuronalEdge;
 
 /**
  *
@@ -17,7 +20,7 @@ import org.toschu.laboraufgabe1.neuronalnetwork.neuron.NeuronalEdge;
  */
 public class Perzeptron extends Neuron {
 
-    private double output;
+    private Double output = 0.0;
     private List<NeuronalEdge> inputs;
     private String name;
 
@@ -25,29 +28,34 @@ public class Perzeptron extends Neuron {
         this.inputs = new ArrayList<>();
     }
 
-    public Perzeptron(double output, List<NeuronalEdge> inputs, String name) {
+    public Perzeptron(Double output, List<NeuronalEdge> inputs, String name) {
         this.output = output;
         this.inputs = inputs;
         this.name = name;
     }
 
     @Override
-    public void computeOutPut() {
-        double sumInput = 0.0;
+    public Double computeOutPut(FeatureVector feature) {
+        Double sumInput = computeSum(feature);
+        if (sumInput < 0.0) {
+            output = 0.0;
+        } else {
+            output = 1.0;
+        }
+        return output;
+    }
+
+    public Double computeSum(FeatureVector featureVector) {
+        Double sumInput = 0.0;
         for (NeuronalEdge currentEdge : inputs) {
-            currentEdge.getSource().computeOutPut();
+            currentEdge.getSource().computeOutPut(featureVector);
             sumInput += currentEdge.getWeight() * currentEdge.getSource().getOutput();
         }
-        if (sumInput < 0.0) {
-            output = 1.0;
-        } else {
-            output = 0.0;
-        }
+        return sumInput;
     }
 
     @Override
-    public double getOutput() {
-        computeOutPut();
+    public Double getOutput() {
         return output;
     }
 
@@ -59,7 +67,36 @@ public class Perzeptron extends Neuron {
         boolean add = this.inputs.add(edge);
     }
 
-    public void setOutput(double output) {
+    public void correctCosts(FeatureVector featureVector, Double sum) {
+        if (sum >= 0.0) {
+            for (NeuronalEdge currentInputEdge : inputs) {
+                InputNeuron currentinputNeuron = (InputNeuron) currentInputEdge.getSource();
+                if (currentinputNeuron.getName().equals(InputNeuron.getNeutralElement())) {
+                    continue;
+                }
+                currentInputEdge.setWeight(
+                        currentInputEdge.getWeight()
+                        + featureVector.getFeatureValue(
+                                currentinputNeuron.getFeature().getValue()));
+
+            }
+        } else {
+            for (NeuronalEdge currentInputEdge : inputs) {
+                InputNeuron currentinputNeuron = (InputNeuron) currentInputEdge.getSource();
+                if (currentinputNeuron.getName().equals(InputNeuron.getNeutralElement())) {
+                    continue;
+                }
+                currentInputEdge.setWeight(
+                        currentInputEdge.getWeight()
+                        - featureVector.getFeatureValue(
+                                currentinputNeuron.getFeature().getValue()));
+
+            }
+        }
+
+    }
+
+    public void setOutput(Double output) {
         this.output = output;
     }
 
@@ -71,6 +108,7 @@ public class Perzeptron extends Neuron {
         this.inputs = inputs;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -94,7 +132,10 @@ public class Perzeptron extends Neuron {
             return false;
         }
         final Perzeptron other = (Perzeptron) obj;
-        if (Double.doubleToLongBits(this.output) != Double.doubleToLongBits(other.output)) {
+        if (!Objects.equals(this.output, other.output)) {
+            return false;
+        }
+        if (!Objects.equals(this.inputs, other.inputs)) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
@@ -110,6 +151,10 @@ public class Perzeptron extends Neuron {
                 + "\t" + "output=" + output + "\n"
                 + "\t" + "inputs=" + inputs + "\n"
                 + "}";
+    }
+
+    public void setName(Mapping3.BinaryNames binaryNames) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
