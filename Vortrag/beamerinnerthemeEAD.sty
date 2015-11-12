@@ -1,0 +1,55 @@
+\ProvidesPackage{beamerinnerthemeEAD}
+
+\mode<presentation>
+
+%\setbeamertemplate{sections/subsections in toc}[square]
+%\setbeamertemplate{items}[square]
+
+\pgfdeclareimage[width=1cm,interpolate=true]{titlepagebanner}{title_banner_EAD}
+\defbeamertemplate*{title page}{EAD}
+{%
+	\newdimen\EAD@tpboxsep
+	\EAD@tempdim=15mm
+	\advance\EAD@tempdim -\beamer@leftmargin
+	\vskip10mm%
+  \begin{minipage}[t]{1cm}
+  \pgfuseimage{titlepagebanner}
+  \end{minipage}
+  \begin{minipage}[b]{9.6cm}
+  \begin{flushright}
+ 	\large \bfseries Institut für Nachhaltigkeitsanalytik und -management\\
+	\small Nachhaltigkeit messbar machen
+	\end{flushright}
+  \end{minipage}
+  \vskip15mm%
+  \hglue\EAD@tempdim%
+  	\begin{beamercolorbox}[ignorebg]{title}
+      \usebeamerfont{title}\strut\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\strut\insertsubtitle\par}%
+      \fi%     
+    \end{beamercolorbox}%
+  \vfill%
+	\hglue\EAD@tempdim%
+		\begin{beamercolorbox}[ignorebg]{author}
+      \usebeamerfont{author}\strut\insertauthor
+    \end{beamercolorbox}
+  \vskip1mm%
+  \hglue\EAD@tempdim%
+  	\begin{beamercolorbox}[ignorebg]{institute}
+      \usebeamerfont{institute}\strut\insertinstitute
+    \end{beamercolorbox}
+  \vfill%
+  \hglue\EAD@tempdim%
+  	\begin{beamercolorbox}[ignorebg]{date}
+      \usebeamerfont{date}\strut\insertdate
+    \end{beamercolorbox}
+}
+
+\setbeamertemplate{itemize items}[circle]
+
+\mode<all>
+
+

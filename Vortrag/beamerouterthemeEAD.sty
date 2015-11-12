@@ -1,0 +1,150 @@
+\ProvidesPackage{beamerouterthemeEAD}
+
+\mode<presentation>
+
+% include images for headline and footline
+\pgfdeclareimage[width=8mm,interpolate=true]{titlebanner}{title_banner_EAD}
+%\pgfdeclareimage[width=52.00mm,interpolate=true]{footbanner}{foot_banner_EAD}
+
+% redefine frametitle template as empty
+\defbeamertemplate*{frametitle}{EAD}{}
+
+% Because normaly everything is set up from top to bottom in beamer, we can not place frametitle and logo side by side. If include the logo into the frametitle macro it will be missing if no frametitle is set by the user. The solution is to set up everything inside the headline. 
+
+% Fake: leere Definition um einen Fehler zu vermeiden, der ausgegeben wird, weil das Makro beim ersten Aufruf von headline noch nicht definiert ist und eigenltich erst im template von frametitle korrekt aufgerufen werden kann
+
+% fake: predefinition of \insertframetitle macro to avoid error message
+\gdef\insertframetitle{}
+\gdef\insertframesubtitle{}
+
+% normaly \insertframetitle is first defined by inlcuding the frametitle template when building the first frame. If we want to use \insertframetitle inside the headline we will get an errormessage about \insertframetitle beeing undefined. This message isn't a problem, because \inserframetitle will be correctly redefined and used later.
+
+\newdimen\EAD@leftheadskip
+\newdimen\EAD@rightheadskip
+\newdimen\EAD@topheadskip
+\EAD@leftheadskip=5mm
+\EAD@rightheadskip=3mm
+\EAD@topheadskip=\EAD@rightheadskip
+
+%%this are dynamicly calculated dimensions don't asign fixed values to them!!!
+\newbox\EAD@frameboxa
+\newbox\EAD@frameboxb
+\newbox\EAD@frameboxc
+
+
+
+% Kopfzeilenlayout
+\defbeamertemplate*{headline}{EAD}{%
+
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,left]{section in head/foot}%
+    \usebeamerfont{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+  \end{beamercolorbox}
+
+	\begin{beamercolorbox}[colsep=0.25pt]{separation line}
+	\end{beamercolorbox}
+	\setbox\EAD@frameboxb=
+	\hbox{
+  \begin{minipage}[t]{0.5cm}
+  \pgfuseimage{titlebanner}
+  \end{minipage}
+  \begin{minipage}[b]{5.4cm}
+  \begin{flushright}
+ 	\scriptsize \bfseries Institut f¸r Nachhaltigkeitsanalytik und -management\\
+	\tiny Nachhaltigkeit messbar machen\\ \hfill\\
+	\end{flushright}
+  \end{minipage}
+	
+	}
+	\EAD@tempdim=\paperwidth
+	\advance\EAD@tempdim by -\EAD@leftheadskip
+	\advance\EAD@tempdim by -\EAD@rightheadskip
+	\advance\EAD@tempdim by -\wd\EAD@frameboxb	
+	\setbox\EAD@frameboxa=\vbox{%
+	  \begin{beamercolorbox}[sep=0mm,ignorebg,wd=\EAD@tempdim]{frametitle}
+	    \usebeamerfont{frametitle}%
+	    \vbox{}%\vskip-.5ex%
+	    \strut\insertframetitle\strut\par%
+	    {%
+	      \ifx\insertframesubtitle\@empty%
+	      \else{%
+\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\strut\par}
+	      \fi
+	    }%
+	  \end{beamercolorbox}
+	  %\vspace*{.5ex}%
+	}
+  \ifdim\ht\EAD@frameboxa > \ht\EAD@frameboxb
+  	\EAD@tempdim=\ht\EAD@frameboxa
+  \else
+  	\EAD@tempdim=\ht\EAD@frameboxb
+  \fi
+  \leavevmode%
+  \vskip\EAD@topheadskip
+	\hspace{\EAD@leftheadskip}%
+	\vbox to \EAD@tempdim{%  		
+		\vfil\box\EAD@frameboxa\vfil
+	}%
+	\hfill%
+	\vbox to \EAD@tempdim{%
+		\box\EAD@frameboxb\vfil
+	}%
+	\hspace{\EAD@rightheadskip}
+}
+
+% Fuﬂzeilenlayout
+\defbeamertemplate*{footline}{EAD}
+{
+  \leavevmode%
+	%% separation line
+	\begin{beamercolorbox}[colsep=0.25pt]{separation line}
+	\end{beamercolorbox}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.75\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+    \usebeamercolor[fg]{author in head/foot}\usebeamerfont{author in head/foot}%
+    \hspace*{0.5em}\insertshortauthor\hspace{.1em}:\hspace{.5em}%
+    \usebeamercolor[fg]{title in head/foot}\usebeamerfont{title in head/foot}%
+		\inserttitle%
+    %\ifx \beamer@shortsubtitle \@empty \relax \else \ -- \insertshortsubtitle  \fi
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{}\,/\,\inserttotalframenumber\hspace*{.5em}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+
+}
+
+% Navigation symbols
+
+\defbeamertemplate*{navigation symbols}{EAD}{}
+
+\defbeamertemplate*{navigation symbols sidebar}{EAD}
+{%
+  \hbox{%
+    %\hbox{\insertslidenavigationsymbol}
+    \hbox{\insertframenavigationsymbol}
+    %\hbox{\insertsubsectionnavigationsymbol}
+    %\hbox{\insertsectionnavigationsymbol}
+    %\hbox{\insertdocnavigationsymbol}
+    %\hbox{\insertbackfindforwardnavigationsymbol}%
+  \hfill}%
+}
+
+\defbeamertemplate*{sidebar left}{EAD}{%
+  \vfill%
+  \rlap{\usebeamertemplate***{navigation symbols sidebar}}
+  \vskip-9mm%
+}
+
+\defbeamertemplate*{sidebar right}{EAD}{%
+%  \vfill%
+%  \llap{\usebeamertemplate***{navigation symbols}}
+%  \vskip-9mm%
+}
+
+
+
+% Seitenr‰nder
+\setbeamersize{text margin left=2em,text margin right=2em}
+
+\mode<all>

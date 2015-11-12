@@ -17,7 +17,7 @@ import org.toschu.laboraufgabe1.featurdefinitions.Quadrant;
 public class MaxRedPartInHorizontalPart {
 
     public HorizontalPart checkWithPartHaveMoreRed(FeatureColor[][] picture) {
-        HorizontalPart mostRed = HorizontalPart.EITHER;
+        HorizontalPart mostRed = null;
         SplitPictureInParts inParts = new SplitPictureInParts();
         MaxColorWithoutWhiteFeature colorWithoutWhiteFeature
                 = new MaxColorWithoutWhiteFeature();
@@ -35,10 +35,8 @@ public class MaxRedPartInHorizontalPart {
                         quadrants.get(Quadrant.QUADRANT_4), FeatureColor.RED);
         if (top > bottom) {
             mostRed = HorizontalPart.TOP;
-        } else if (bottom > top) {
-            mostRed = HorizontalPart.BOTTOM;
         } else {
-            mostRed = HorizontalPart.EITHER;
+            mostRed = HorizontalPart.BOTTOM;
         }
         return mostRed;
     }

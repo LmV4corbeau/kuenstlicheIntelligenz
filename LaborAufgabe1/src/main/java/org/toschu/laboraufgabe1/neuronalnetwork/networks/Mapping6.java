@@ -19,6 +19,7 @@ public class Mapping6 extends PerzeptronNetwork {
 
     public Mapping6() {
         super();
+        super.setName(this.getClass().getSimpleName());
         buildNetwork();
         mapping();
     }
@@ -27,33 +28,33 @@ public class Mapping6 extends PerzeptronNetwork {
 
         PerzeptronNetwork vorfahrtsstrasse
                 = new OnlyVorfahrtStrasse();
-        System.out.println(vorfahrtsstrasse.getPerzeptrons());
+        //System.out.println(vorfahrtsstrasse.getPerzeptrons());
         super.getPerzeptrons()
                 .addAll(vorfahrtsstrasse.getPerzeptrons());
 
         PerzeptronNetwork rechtsabbiegen
                 = new OnlyRight();
-        System.out.println(rechtsabbiegen.getPerzeptrons());
+        //System.out.println(rechtsabbiegen.getPerzeptrons());
         super.getPerzeptrons().addAll(rechtsabbiegen.getPerzeptrons());
 
         PerzeptronNetwork linksabbiegen
                 = new OnlyLeft();
-        System.out.println(linksabbiegen.getPerzeptrons());
+        //System.out.println(linksabbiegen.getPerzeptrons());
         super.getPerzeptrons().addAll(linksabbiegen.getPerzeptrons());
 
         PerzeptronNetwork stop
                 = new OnlyStop();
-        System.out.println(stop.getPerzeptrons());
+        //System.out.println(stop.getPerzeptrons());
         super.getPerzeptrons().addAll(stop.getPerzeptrons());
 
         PerzeptronNetwork vorfahrtvonRechts
                 = new OnlyVorfahrtvonRechts();
-        System.out.println(vorfahrtvonRechts.getPerzeptrons());
+        //System.out.println(vorfahrtvonRechts.getPerzeptrons());
         super.getPerzeptrons().addAll(vorfahrtvonRechts.getPerzeptrons());
 
         PerzeptronNetwork vorfahrtgew
                 = new OnlyVorfahrtvonRechts();
-        System.out.println(vorfahrtgew.getPerzeptrons());
+        //System.out.println(vorfahrtgew.getPerzeptrons());
         super.getPerzeptrons().addAll(vorfahrtgew.getPerzeptrons());
 
     }
@@ -64,13 +65,12 @@ public class Mapping6 extends PerzeptronNetwork {
         linksAbbiegenCoincept();
         vorfahrtVonRechtsConcept();
         vorfahrtGewConcept();
-
     }
 
     private void vorfahrtVonRechtsConcept() {
         //VorfahrtVonRechts
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(1.0);
 
         Perzeptron vorfahrtsStraße = new Perzeptron();
@@ -90,7 +90,7 @@ public class Mapping6 extends PerzeptronNetwork {
         leftStop.setOutput(0.0);
 
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(0.0);
 
         List<Perzeptron> perzeptrons = new ArrayList<>();
@@ -107,11 +107,11 @@ public class Mapping6 extends PerzeptronNetwork {
     private void vorfahrtGewConcept() {
         //VorfahrtGewähren
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(1.0);
 
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(0.0);
 
         Perzeptron vorfahrtsStraße = new Perzeptron();
@@ -139,7 +139,7 @@ public class Mapping6 extends PerzeptronNetwork {
         perzeptrons.add(vorfahrtgew);
         perzeptrons.add(vorfahrtgew);
 
-        super.getMappingConceptToPerzeptron().put(Concept.VorfahrtVonRechts, perzeptrons);
+        super.getMappingConceptToPerzeptron().put(Concept.Vorfahrt, perzeptrons);
     }
 
     private void stopConcept() {
@@ -161,11 +161,11 @@ public class Mapping6 extends PerzeptronNetwork {
         leftStop.setOutput(1.0);
 
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(0.0);
 
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(0.0);
 
         List<Perzeptron> perzeptrons = new ArrayList<>();
@@ -198,11 +198,11 @@ public class Mapping6 extends PerzeptronNetwork {
         leftStop.setOutput(0.0);
 
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(0.0);
 
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(0.0);
 
         List<Perzeptron> perzeptrons = new ArrayList<>();
@@ -235,11 +235,11 @@ public class Mapping6 extends PerzeptronNetwork {
         vorStop.setOutput(0.0);
 
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(0.0);
 
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(0.0);
 
         List<Perzeptron> perzeptrons = new ArrayList<>();
@@ -272,11 +272,11 @@ public class Mapping6 extends PerzeptronNetwork {
         rightStop.setOutput(0.0);
 
         Perzeptron vorfahrtvconRechts = new Perzeptron();
-        vorfahrtvconRechts.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtvconRechts.setName(Concept.VorfahrtVonRechts.name());
         vorfahrtvconRechts.setOutput(0.0);
 
         Perzeptron vorfahrtgew = new Perzeptron();
-        vorfahrtgew.setName(Concept.Vorfahrtsstraße.name());
+        vorfahrtgew.setName(Concept.Vorfahrt.name());
         vorfahrtgew.setOutput(0.0);
 
         List<Perzeptron> perzeptrons = new ArrayList<>();

@@ -12,8 +12,7 @@ package org.toschu.laboraufgabe1.featurdefinitions;
 public enum HorizontalPart {
 
     TOP(1),
-    BOTTOM(0),
-    EITHER(2);
+    BOTTOM(0);
 
     private int value;
 
@@ -27,10 +26,6 @@ public enum HorizontalPart {
 
     public static HorizontalPart getBOTTOM() {
         return BOTTOM;
-    }
-
-    public static HorizontalPart getEITHER() {
-        return EITHER;
     }
 
     public int getValue() {

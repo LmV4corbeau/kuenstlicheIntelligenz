@@ -40,7 +40,6 @@ public class RedAndBlack {
             for (int column = 0; column < picture[0].length; column++) {
                 if (picture[row][column] != FeatureColor.NOTHING) {
                     pixels++;
-                } else {
                 }
             }
         }

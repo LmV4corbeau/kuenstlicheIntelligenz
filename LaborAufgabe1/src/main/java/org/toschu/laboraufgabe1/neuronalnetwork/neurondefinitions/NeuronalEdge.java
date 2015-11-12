@@ -19,16 +19,18 @@ public class NeuronalEdge {
     private boolean inhibitory;
 
     public NeuronalEdge(Neuron source, Neuron destination,
-            double weight) {
+            double weight, boolean inhibitory) {
         this.source = source;
         this.destination = destination;
         this.weight = weight;
+        this.inhibitory = inhibitory;
         this.destination.addInput(this);
     }
 
-    public NeuronalEdge(Neuron source, Neuron destination) {
+    public NeuronalEdge(Neuron source, Neuron destination, boolean inhibitory) {
         this.source = source;
         this.destination = destination;
+        this.inhibitory = inhibitory;
         this.destination.addInput(this);
         initialize();
     }
@@ -39,7 +41,7 @@ public class NeuronalEdge {
     }
 
     public NeuronalEdge clone() {
-        return new NeuronalEdge(source, destination, weight);
+        return new NeuronalEdge(source, destination, weight, inhibitory);
     }
 
     public Neuron getSource() {
@@ -83,6 +85,14 @@ public class NeuronalEdge {
                 + "\t" + ", weight=" + weight + "\n"
                 + "\t" + ", inhibitory=" + inhibitory + "\n"
                 + '}';
+    }
+
+    public double inhibitoryValue() {
+        if (this.inhibitory) {
+            return -1.0;
+        } else {
+            return 1.0;
+        }
     }
 
 }

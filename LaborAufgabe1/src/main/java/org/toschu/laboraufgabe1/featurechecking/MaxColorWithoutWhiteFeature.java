@@ -50,4 +50,21 @@ public class MaxColorWithoutWhiteFeature {
         return countOfColor;
     }
 
+    public int countColorInPictureBin(FeatureColor[][] picture, FeatureColor wantedColor) {
+        int countOfColor = 0;
+        for (int rowCounter = 0; rowCounter < picture.length; rowCounter++) {
+            for (int columnCounter = 0; columnCounter < picture[rowCounter].length; columnCounter++) {
+                if (wantedColor.equals(picture[rowCounter][columnCounter])) {
+                    countOfColor++;
+                }
+            }
+        }
+
+        if (countOfColor > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

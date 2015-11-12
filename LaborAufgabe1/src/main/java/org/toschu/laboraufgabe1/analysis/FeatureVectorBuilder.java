@@ -11,6 +11,7 @@ import org.toschu.laboraufgabe1.featurdefinitions.Feature;
 import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
 import org.toschu.laboraufgabe1.featurechecking.MaxColorWithoutWhiteFeature;
 import org.toschu.laboraufgabe1.featurechecking.MaxRedPartInHorizontalPart;
+import org.toschu.laboraufgabe1.featurechecking.NOREDANDBLUE;
 import org.toschu.laboraufgabe1.featurechecking.QuadrantOfMaxBlue;
 import org.toschu.laboraufgabe1.featurechecking.RedAndBlack;
 import org.toschu.laboraufgabe1.featurechecking.WhitePartInPictureToRed;
@@ -34,6 +35,8 @@ public class FeatureVectorBuilder {
         RedAndBlack redAndBlack = new RedAndBlack();
         WhitePartInPictureToRed whitePartInPictureToRed
                 = new WhitePartInPictureToRed();
+        NOREDANDBLUE noredandblue
+                = new NOREDANDBLUE();
 
         //addFeatures
         vector.addFeatureToVector(
@@ -41,23 +44,23 @@ public class FeatureVectorBuilder {
                 redAndBlack.countPixel(image));
         vector.addFeatureToVector(
                 Feature.BLACKCOUNT,
-                colorWithoutWhiteFeature.countColorInPicture(
+                colorWithoutWhiteFeature.countColorInPictureBin(
                         image, FeatureColor.BLACK));
         vector.addFeatureToVector(
                 Feature.BLUECOUNT,
-                colorWithoutWhiteFeature.countColorInPicture(
+                colorWithoutWhiteFeature.countColorInPictureBin(
                         image, FeatureColor.BLUE));
         vector.addFeatureToVector(
                 Feature.REDCOUNT,
-                colorWithoutWhiteFeature.countColorInPicture(
+                colorWithoutWhiteFeature.countColorInPictureBin(
                         image, FeatureColor.RED));
         vector.addFeatureToVector(
                 Feature.WHITECOUNT,
-                colorWithoutWhiteFeature.countColorInPicture(
+                colorWithoutWhiteFeature.countColorInPictureBin(
                         image, FeatureColor.WHITE));
         vector.addFeatureToVector(
                 Feature.YELLOWCOUNT,
-                colorWithoutWhiteFeature.countColorInPicture(
+                colorWithoutWhiteFeature.countColorInPictureBin(
                         image, FeatureColor.YELLOW));
         vector.addFeatureToVector(
                 Feature.MAX_COLOR_WITHOUT_WHITE,
@@ -75,6 +78,7 @@ public class FeatureVectorBuilder {
         vector.addFeatureToVector(
                 Feature.WHITE_PART_IN_PICTURE_TO_RED,
                 whitePartInPictureToRed.getWhiteToRedRelation(image));
+        vector.addFeatureToVector(Feature.NOREDANDBLUE, noredandblue.NOREDANDBLUE(image));
         return vector;
     }
 }

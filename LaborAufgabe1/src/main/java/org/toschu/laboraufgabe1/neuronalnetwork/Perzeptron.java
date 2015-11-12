@@ -49,7 +49,9 @@ public class Perzeptron extends Neuron {
         Double sumInput = 0.0;
         for (NeuronalEdge currentEdge : inputs) {
             currentEdge.getSource().computeOutPut(featureVector);
-            sumInput += currentEdge.getWeight() * currentEdge.getSource().getOutput();
+            sumInput += currentEdge.getWeight() 
+                    * currentEdge.getSource().getOutput()
+                    * currentEdge.inhibitoryValue();
         }
         return sumInput;
     }
@@ -153,8 +155,5 @@ public class Perzeptron extends Neuron {
                 + "}";
     }
 
-    public void setName(Mapping3.BinaryNames binaryNames) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

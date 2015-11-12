@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.toschu.laboraufgabe1.TomFeatureVector;
 import org.toschu.laboraufgabe1.framework.Concept;
 import org.toschu.laboraufgabe1.framework.FeatureVector;
 import org.toschu.laboraufgabe1.framework.Learner;
@@ -32,12 +33,11 @@ public class PerzeptronLearner implements Learner {
 
     @Override
     public void learn(List<FeatureVector> trainingSet) {
-        //System.out.println("Netowrk:");
-        //System.out.println(perzeptronNetwork.toString());
         for (int i = 0; i < learingRate; i++) {
             for (FeatureVector currentFeatureVector : trainingSet) {
                 giveInputsToNetworks(currentFeatureVector);
                 Concept classified = classify(currentFeatureVector);
+
                 if (!classified.equals(currentFeatureVector.getConcept())) {
                     List<Perzeptron> conceptPerzeptrons
                             = mappingConceptsToOutput.get(currentFeatureVector.getConcept());
@@ -66,7 +66,7 @@ public class PerzeptronLearner implements Learner {
     public Concept classify(FeatureVector example) {
         List<Perzeptron> networkPerzeptrons = perzeptronNetwork.getPerzeptrons();
         Concept result = Concept.Unknown;
-        //System.out.println("soll:\t" + example.getConcept());
+        //System.out.println("soll:\t" + example.getConcept().name());
         networkPerzeptrons.stream().forEach((current) -> {
             current.computeOutPut(example);
         });
@@ -78,7 +78,7 @@ public class PerzeptronLearner implements Learner {
                             mappingConceptsToOutput.get(currentConcept),
                             networkPerzeptrons));
         }
-        ////System.out.println(results);
+        //System.out.println(results);
         int matches = 0;
         for (Boolean currentResult : results.values()) {
             if (currentResult) {
@@ -92,6 +92,7 @@ public class PerzeptronLearner implements Learner {
                 }
             }
         }
+        //System.out.println("ist:\t" + result.name());
         return result;
     }
 

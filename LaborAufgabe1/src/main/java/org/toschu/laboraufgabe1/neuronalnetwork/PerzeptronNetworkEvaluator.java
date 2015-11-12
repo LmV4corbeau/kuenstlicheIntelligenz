@@ -6,6 +6,7 @@
 package org.toschu.laboraufgabe1.neuronalnetwork;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,7 +21,12 @@ import org.toschu.laboraufgabe1.neuronalnetwork.networks.Mapping3;
 import org.toschu.laboraufgabe1.neuronalnetwork.networks.Mapping6;
 import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyLeft;
 import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyRight;
+import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyStop;
+import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyVorfahrtGewaehren;
 import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyVorfahrtStrasse;
+import org.toschu.laboraufgabe1.neuronalnetwork.networks.OnlyVorfahrtvonRechts;
+import org.toschu.repositoryapi.api.Implemented.JSONRepository;
+import org.toschu.repositoryapi.api.Repository;
 
 /**
  *
@@ -32,7 +38,7 @@ public class PerzeptronNetworkEvaluator {
      * the percentage (between 0 und 100) of vectors from the data to be used
      * for the test
      */
-    private int testRate = 50;
+    private int testRate = 100;
     private int numberOfTests = 100;
 
     public PerzeptronNetworkEvaluator() {
@@ -49,15 +55,13 @@ public class PerzeptronNetworkEvaluator {
         this.numberOfTests = numberOfTests;
         this.testRate = testRate;
 
-        // TODO: folgendes muss zur Evaluierung mehrfach ausgef�hrt werden
-        // Verschiedene Teilmengen finden und Verschiedene Reihenfolgen festlegen,
-        // wie oft, das h�ngt vom gew�nschten Vertrauensintervall ab
+        System.out.println(network.getName());
         int i = 0;
         do {
             Learner learner
                     = new PerzeptronLearner(network,
                             network.getMappingConceptToPerzeptron(),
-                            10);
+                            this.testRate);
             vectors = mixData(vectors);
             List<List<FeatureVector>> sets = extractTrainingData(vectors);
             learner.learn(sets.get(0));
@@ -65,12 +69,18 @@ public class PerzeptronNetworkEvaluator {
             success += result.get(0) / (float) sets.get(1).size();
             unknown += result.get(1) / (float) sets.get(1).size();
             wrong += result.get(2) / (float) sets.get(1).size();
-            //evalResult(result);
             i++;
-        } while (i < numberOfTests); //TODO: eine andere Abbruchbedingung verwenden
-        System.out.println("Result after " + numberOfTests + " Test with " + vectors.size() + " FeatureVectors:");
-        System.out.println("Learning result: \n correct: " + (success / numberOfTests) * 100f + "%\n unknown: "
-                + (unknown / numberOfTests) * 100f + "%\n wrong: " + (wrong / numberOfTests) * 100f + "%");
+        } while (i < numberOfTests);
+        System.out.println("Result after "
+                + numberOfTests + " Test with "
+                + vectors.size() + " FeatureVectors:");
+        System.out.println("Learning result: \n correct: "
+                + (success / numberOfTests) * 100f + "%\n unknown: "
+                + (unknown / numberOfTests) * 100f + "%\n wrong: "
+                + (wrong / numberOfTests) * 100f + "%");
+        Repository<PerzeptronNetwork> repo = new JSONRepository<>(
+                new File(network.getClass().getSimpleName()),
+                PerzeptronNetwork.class);
 
     }
 
@@ -83,7 +93,9 @@ public class PerzeptronNetworkEvaluator {
      */
     private void evalResult(Vector<Integer> result) {
         // TODO hier muss mehr Auswertung passieren, insbes: Vertrauensintervalle etc
-        System.out.println("Learning result: \n correct: " + result.get(0) + "\n unknown: " + result.get(1) + "\n wrong: " + result.get(2));
+        System.out.println("Learning result: \n correct: "
+                + result.get(0) + "\n unknown: "
+                + result.get(1) + "\n wrong: " + result.get(2));
     }
 
     /**
@@ -188,16 +200,31 @@ public class PerzeptronNetworkEvaluator {
         } else {
             filename = args[0];
         }
+        System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVorfahrtStrasse
-                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtStrasse(), 50, 10);
+                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtStrasse(), 100, 100);
+        System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyRight
-                = new PerzeptronNetworkEvaluator(filename, new OnlyRight(), 50, 10);
+                = new PerzeptronNetworkEvaluator(filename, new OnlyRight(), 100, 100);
+        System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyLeft
-                = new PerzeptronNetworkEvaluator(filename, new OnlyLeft(), 50, 10);
+                = new PerzeptronNetworkEvaluator(filename, new OnlyLeft(), 100, 100);
+        System.out.println("");
+        PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyStop
+                = new PerzeptronNetworkEvaluator(filename, new OnlyStop(), 100, 100);
+        System.out.println("");
+        PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVorGew
+                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtGewaehren(), 100, 100);
+        System.out.println("");
+        PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorOnlyVonRechts
+                = new PerzeptronNetworkEvaluator(filename, new OnlyVorfahrtvonRechts(), 100, 100);
+        System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorMapping6
-                = new PerzeptronNetworkEvaluator(filename, new Mapping6(), 50, 10);
+                = new PerzeptronNetworkEvaluator(filename, new Mapping6(), 100, 100);
+        System.out.println("");
         PerzeptronNetworkEvaluator perzeptronNetworkEvaluatorMapping3
-                = new PerzeptronNetworkEvaluator(filename, new Mapping3(), 50, 10);
+                = new PerzeptronNetworkEvaluator(filename, new Mapping3(), 100, 100);
+        System.out.println("");
 
     }
 }

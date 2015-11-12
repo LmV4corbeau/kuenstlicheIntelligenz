@@ -26,6 +26,7 @@ public class OnlyVorfahrtGewaehren extends PerzeptronNetwork {
 
     public OnlyVorfahrtGewaehren() {
         super(new ArrayList<>());
+        super.setName(this.getClass().getSimpleName());
         init();
         super.setMappingConceptToPerzeptron(mapping());
     }
@@ -74,18 +75,28 @@ public class OnlyVorfahrtGewaehren extends PerzeptronNetwork {
         InputNeuron BLACKCOUNT = new InputNeuron(0.0,
                 Feature.BLACKCOUNT.toString(),
                 Feature.BLACKCOUNT);
+        InputNeuron NOREDANDBLUE = new InputNeuron(0.0,
+                Feature.NOREDANDBLUE.name(), Feature.REDCOUNT);
 
         InputNeuron neutral = new InputNeuron(-1.0, InputNeuron.getNeutralElement(), null);
-        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtgew, 1.0);
+        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtgew, 1.0, false);
 
         NeuronalEdge RedCount
-                = new NeuronalEdge(REDCOUNT, vorfahrtgew);
+                = new NeuronalEdge(REDCOUNT, vorfahrtgew, false);
         NeuronalEdge maxWithInHorizontal
-                = new NeuronalEdge(MAX_RED_PART_IN_HORIZONTAL_PART, vorfahrtgew);
+                = new NeuronalEdge(MAX_RED_PART_IN_HORIZONTAL_PART, vorfahrtgew, false);
         NeuronalEdge WithCount
-                = new NeuronalEdge(WHITECOUNT, vorfahrtgew);
+                = new NeuronalEdge(WHITECOUNT, vorfahrtgew, false);
         NeuronalEdge withToRed
-                = new NeuronalEdge(WHITE_PART_IN_PICTURE_TO_RED, vorfahrtgew);
+                = new NeuronalEdge(WHITE_PART_IN_PICTURE_TO_RED, vorfahrtgew, false);
+        NeuronalEdge blue
+                = new NeuronalEdge(BLUECOUNT, vorfahrtgew, true);
+        NeuronalEdge yellow
+                = new NeuronalEdge(YELLOWCOUNT, vorfahrtgew, true);
+        NeuronalEdge RUB
+                = new NeuronalEdge(RED_AND_BLACK, vorfahrtgew, true);
+        NeuronalEdge mrihp
+                = new NeuronalEdge(MAX_RED_PART_IN_HORIZONTAL_PART, vorfahrtgew,true);
         
     }
 

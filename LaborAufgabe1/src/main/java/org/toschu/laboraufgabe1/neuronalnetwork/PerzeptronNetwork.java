@@ -10,12 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.toschu.laboraufgabe1.framework.Concept;
+import org.toschu.repositoryapi.api.Identity;
 
 /**
  *
  * @author toschu
  */
-public class PerzeptronNetwork {
+public class PerzeptronNetwork extends Identity{
 
     private String name;
     private List<Perzeptron> perzeptrons;

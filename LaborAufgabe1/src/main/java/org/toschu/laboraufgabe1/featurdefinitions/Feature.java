@@ -26,8 +26,9 @@ public enum Feature {
     YELLOWCOUNT(7),
     REDCOUNT(8),
     WHITECOUNT(9),
-    BLACKCOUNT(10);
-    
+    BLACKCOUNT(10),
+    //NOREDANDBLUE
+    NOREDANDBLUE(11);
 
     private final int value;
 

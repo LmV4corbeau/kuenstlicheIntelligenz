@@ -26,6 +26,7 @@ public class OnlyRight extends PerzeptronNetwork {
 
     public OnlyRight() {
         super(new ArrayList<>());
+        super.setName(this.getClass().getSimpleName());
         init();
         super.setMappingConceptToPerzeptron(mapping());
     }
@@ -86,14 +87,20 @@ public class OnlyRight extends PerzeptronNetwork {
         InputNeuron BLACKCOUNT = new InputNeuron(0.0,
                 Feature.BLACKCOUNT.toString(),
                 Feature.BLACKCOUNT);
+        InputNeuron NOREDANDBLUE = new InputNeuron(0.0,
+                Feature.NOREDANDBLUE.name(), Feature.REDCOUNT);
 
         InputNeuron neutral = new InputNeuron(-1.0, InputNeuron.getNeutralElement(), null);
-        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, rightDirection, 1.0);
+        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, rightDirection, 1.0, false);
 
         NeuronalEdge YelloCountToVorfahrt
-                = new NeuronalEdge(BLUECOUNT, rightDirection);
+                = new NeuronalEdge(BLUECOUNT, rightDirection, false);
         NeuronalEdge vorstrMaxColor
-                = new NeuronalEdge(MAX_WHITE_PART_TO_BLUE_IN_QUADRANT, rightDirection);
+                = new NeuronalEdge(MAX_WHITE_PART_TO_BLUE_IN_QUADRANT, rightDirection, true);
+        NeuronalEdge red
+                = new NeuronalEdge(REDCOUNT, rightDirection, true);
+        NeuronalEdge yellow
+                = new NeuronalEdge(YELLOWCOUNT, rightDirection, true);
     }
 
 }

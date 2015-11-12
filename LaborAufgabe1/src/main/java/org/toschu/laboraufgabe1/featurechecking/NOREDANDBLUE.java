@@ -6,14 +6,15 @@
 package org.toschu.laboraufgabe1.featurechecking;
 
 import org.toschu.laboraufgabe1.featurdefinitions.FeatureColor;
+import org.toschu.laboraufgabe1.framework.FeatureVector;
 
 /**
  *
  * @author toschu
  */
-public class WhitePartInPictureToRed {
+public class NOREDANDBLUE {
 
-    public int getWhiteToRedRelation(FeatureColor[][] picture) {
+    public int NOREDANDBLUE(FeatureColor[][] picture) {
         MaxColorWithoutWhiteFeature colorWithoutWhiteFeature
                 = new MaxColorWithoutWhiteFeature();
         int redCount
@@ -21,13 +22,13 @@ public class WhitePartInPictureToRed {
                         picture, FeatureColor.RED);
         int withCount
                 = colorWithoutWhiteFeature.countColorInPicture(
-                        picture, FeatureColor.WHITE);
-        double colorRelation
-                = (double) redCount / (double) withCount;
-        if (colorRelation > 0.0) {
-            return 0;
-        } else {
+                        picture, FeatureColor.BLUE);
+        int colorRelation
+                = redCount + withCount;
+        if (colorRelation >= 0) {
             return 1;
+        } else {
+            return 0;
         }
     }
 }

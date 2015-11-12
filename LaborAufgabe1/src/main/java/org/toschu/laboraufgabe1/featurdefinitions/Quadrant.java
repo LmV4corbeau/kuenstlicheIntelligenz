@@ -11,7 +11,7 @@ package org.toschu.laboraufgabe1.featurdefinitions;
  */
 public enum Quadrant {
 
-    QUADRANT_0(4),
+    QUADRANT_0(-1),
     QUADRANT_1(0),
     QUADRANT_2(1),
     QUADRANT_3(2),
@@ -28,21 +28,6 @@ public enum Quadrant {
         return "Quadrant{" + "value=" + value + '}';
     }
 
-    public static Quadrant getQUADRANT_1() {
-        return QUADRANT_1;
-    }
-
-    public static Quadrant getQUADRANT_2() {
-        return QUADRANT_2;
-    }
-
-    public static Quadrant getQUADRANT_3() {
-        return QUADRANT_3;
-    }
-
-    public static Quadrant getQUADRANT_4() {
-        return QUADRANT_4;
-    }
 
     public int getValue() {
         return value;

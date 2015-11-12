@@ -24,20 +24,14 @@ public class OnlyVorfahrtStrasse extends PerzeptronNetwork {
 
     private Perzeptron vorfahrtsStraße;
 
-    public OnlyVorfahrtStrasse(List<Perzeptron> perzeptrons,
-            Map<Concept, List<Perzeptron>> mappingConceptToPerzeptron) {
-        super(perzeptrons);
-        super.setMappingConceptToPerzeptron(mappingConceptToPerzeptron);
-        init();
-    }
-
     public OnlyVorfahrtStrasse() {
         super(new ArrayList<>());
+        super.setName(this.getClass().getSimpleName());
         init();
         super.setMappingConceptToPerzeptron(mapping());
     }
 
-    public final void init() {
+    public void init() {
         vorfahrtsStraße = new Perzeptron();
         vorfahrtsStraße.setName(Concept.Vorfahrtsstraße.name());
         super.getPerzeptrons().add(vorfahrtsStraße);
@@ -81,17 +75,25 @@ public class OnlyVorfahrtStrasse extends PerzeptronNetwork {
         InputNeuron BLACKCOUNT = new InputNeuron(0.0,
                 Feature.BLACKCOUNT.toString(),
                 Feature.BLACKCOUNT);
+        InputNeuron NOREDANDBLUE = new InputNeuron(0.0,
+                Feature.NOREDANDBLUE.name(), Feature.REDCOUNT);
         //Edges
         InputNeuron neutral = new InputNeuron(-1.0, InputNeuron.getNeutralElement(), null);
-        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtsStraße, 1.0);
+        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtsStraße, 1.0, false);
 
         NeuronalEdge YelloCountToVorfahrt
-                = new NeuronalEdge(YELLOWCOUNT, vorfahrtsStraße);
-        NeuronalEdge vorstrMaxColor
-                = new NeuronalEdge(MAX_COLOR_WITHOUT_WHITE, vorfahrtsStraße);
+                = new NeuronalEdge(YELLOWCOUNT, vorfahrtsStraße, false);
+
+        NeuronalEdge noredandblue
+                = new NeuronalEdge(NOREDANDBLUE, vorfahrtsStraße, false);
+        NeuronalEdge red
+                = new NeuronalEdge(REDCOUNT, vorfahrtsStraße, true);
+         NeuronalEdge blue
+                = new NeuronalEdge(BLUECOUNT, vorfahrtsStraße, true);
+
     }
 
-    public static Map<Concept, List<Perzeptron>> mapping() {
+    public Map<Concept, List<Perzeptron>> mapping() {
         Map<Concept, List<Perzeptron>> mappingConceptToPerzeptrontmp
                 = new HashMap<>();
         Perzeptron vorfahrtsStraßeConcept = new Perzeptron();

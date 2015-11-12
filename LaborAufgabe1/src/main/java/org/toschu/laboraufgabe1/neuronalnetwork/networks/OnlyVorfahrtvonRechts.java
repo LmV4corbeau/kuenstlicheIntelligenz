@@ -26,6 +26,7 @@ public class OnlyVorfahrtvonRechts extends PerzeptronNetwork {
 
     public OnlyVorfahrtvonRechts() {
         super(new ArrayList<>());
+        super.setName(this.getClass().getSimpleName());
         init();
         super.setMappingConceptToPerzeptron(mapping());
     }
@@ -74,14 +75,22 @@ public class OnlyVorfahrtvonRechts extends PerzeptronNetwork {
         InputNeuron BLACKCOUNT = new InputNeuron(0.0,
                 Feature.BLACKCOUNT.toString(),
                 Feature.BLACKCOUNT);
+        InputNeuron NOREDANDBLUE = new InputNeuron(0.0,
+                Feature.NOREDANDBLUE.name(), Feature.REDCOUNT);
 
         InputNeuron neutral = new InputNeuron(-1.0, InputNeuron.getNeutralElement(), null);
-        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtVonRechts, 1.0);
+        NeuronalEdge neutralVorsST = new NeuronalEdge(neutral, vorfahrtVonRechts, 1.0, false);
 
         NeuronalEdge RedCount
-                = new NeuronalEdge(REDCOUNT, vorfahrtVonRechts);
+                = new NeuronalEdge(REDCOUNT, vorfahrtVonRechts, false);
         NeuronalEdge maxcolor
-                = new NeuronalEdge(MAX_COLOR_WITHOUT_WHITE, vorfahrtVonRechts);
+                = new NeuronalEdge(MAX_COLOR_WITHOUT_WHITE, vorfahrtVonRechts, false);
+        NeuronalEdge mrihp
+                = new NeuronalEdge(MAX_RED_PART_IN_HORIZONTAL_PART, vorfahrtVonRechts, false);
+        NeuronalEdge blue
+                = new NeuronalEdge(BLUECOUNT, vorfahrtVonRechts, true);
+        NeuronalEdge yellow
+                = new NeuronalEdge(YELLOWCOUNT, vorfahrtVonRechts, true);
     }
 
     public static Map<Concept, List<Perzeptron>> mapping() {

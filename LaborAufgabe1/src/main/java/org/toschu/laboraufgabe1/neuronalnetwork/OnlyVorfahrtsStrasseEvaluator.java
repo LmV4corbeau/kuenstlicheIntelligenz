@@ -45,7 +45,7 @@ public class OnlyVorfahrtsStrasseEvaluator {
         do {
             Learner learner
                     = new PerzeptronLearner(new OnlyVorfahrtStrasse(),
-                            OnlyVorfahrtStrasse.mapping(), 10);
+                            new OnlyVorfahrtStrasse().mapping(), 10);
             vectors = mixData(vectors);
             List<List<FeatureVector>> sets = extractTrainingData(vectors);
             learner.learn(sets.get(0));
